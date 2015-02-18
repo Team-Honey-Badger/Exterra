@@ -24,6 +24,12 @@ public:
 		float crouchSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
 		float maxStamina;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float maxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float maxEnergy;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float maxAmmo;
 
 	//is player running
 	UPROPERTY(BlueprintReadOnly)
@@ -32,6 +38,18 @@ public:
 	//stamina is required to be able to run
 	UPROPERTY(BlueprintReadOnly)
 		float stamina;
+
+	//character health
+	UPROPERTY(BlueprintReadOnly)
+		float health;
+
+	//character energy
+	UPROPERTY(BlueprintReadOnly)
+		float energy;
+
+	//character ammo
+	UPROPERTY(BlueprintReadOnly)
+		float ammo;
 
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);
