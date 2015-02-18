@@ -14,10 +14,24 @@ class UNREALLYDOOMED_API AFPSCharacter : public ACharacter
 	GENERATED_BODY()
 	
 public:
+
+	// movement variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement) //can be edited in blueprints
+		float walkSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float runSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float crouchSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float maxStamina;
+
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);
 
 	virtual void BeginPlay() override;
+
+	//ticks over time to passively update player
+	virtual void Tick(float DeltaTime) override;
 
 	//sets jump flag when key is pressed
 	UFUNCTION()
@@ -48,28 +62,28 @@ public:
 
 protected:
 	
+	//is player running
 	UPROPERTY()
 		bool isRunning;
 
+	//stamina is required to be able to run
+	UPROPERTY()
+		float stamina;
+
+	//setup inputs
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	//handles moving forward/backward
 	UFUNCTION()
 		void MoveForward(float Val);
-	////handles running
-	//UFUNCTION()
-	//	void Run(float Val);
-	////handles walking
-	//UFUNCTION()
-	//	void Walk(float Val);
 
 	//handles strafing
 	UFUNCTION()
 		void MoveRight(float Val);
 	
-	//UFUNCTION()
+	//handles running
+	UFUNCTION()
 		void StartRunning();
-
-	//UFUNCTION()
+	UFUNCTION()
 		void StopRunning();
 };

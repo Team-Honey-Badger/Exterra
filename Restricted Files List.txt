@@ -1,4 +1,4 @@
-//Always sync and then list the binary files you are about to lock down here, files will be restricted by whoever committed the file into the list first! Violators will be blammed!!!!!!!!!!!!!!!!!!! 
+//Always sync and then list the binary files you are about to lock down here, files will be restricted by whoever committed the file into the list first! Violators will be blamed!!!!!!!!!!!!!!!!!!! 
 
 Josh:
 
@@ -22,5 +22,5 @@ George:
 
 Alex:
 	FPSCharacter_BP
-	Project settings
-	FPSMap
+	FPSCharacter_AnimationBP
+	FPSMap (copy it if u must, but I'm using this one as my testing zone)

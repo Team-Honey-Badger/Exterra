@@ -15,18 +15,12 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 	// Allow the pawn to control rotation.
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	//// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	//FirstPersonMesh = ObjectInitializer.CreateDefaultSubobject<USkeletalMeshComponent>(this, TEXT("FirstPersonMesh"));
-	//FirstPersonMesh->SetOnlyOwnerSee(true);         // only the owning player will see this mesh
-	//FirstPersonMesh->AttachParent = FirstPersonCameraComponent;
-	//FirstPersonMesh->bCastDynamicShadow = false;
-	//FirstPersonMesh->CastShadow = false;
-
-	//// everyone but the owner can see the regular body mesh
-	//GetMesh()->SetOwnerNoSee(true);
+	//enable ticking
+	CanEverTick();
 
 	//initialize vars
 	isRunning = false;
+	stamina = maxStamina;
 }
 
 void AFPSCharacter::BeginPlay()
@@ -39,11 +33,37 @@ void AFPSCharacter::BeginPlay()
 	}
 }
 
+void AFPSCharacter::Tick(float DeltaTime)
+{
+	if (!isRunning){
+		if (stamina < maxStamina){
+			stamina += GetWorld()->GetDeltaSeconds(); //recharge stamina
+			if (stamina < 0){
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Fatigue Fading"));
+				}
+			}
+			else{
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Charging"));
+				}
+			}
+			if (stamina > maxStamina){
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Restored Max Stamina"));
+				}
+			}
+		}
+	}
+}
+
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 {
 	// set up gameplay key bindings
-	InputComponent->BindAxis("MoveForward", this, &AFPSCharacter::MoveForward); // call custom class to handle movement 
-	//InputComponent->BindAxis("Sprint", this, &AFPSCharacter::Run);
+	InputComponent->BindAxis("MoveForward", this, &AFPSCharacter::MoveForward); // call custom class to handle movement
 	InputComponent->BindAxis("MoveRight", this, &AFPSCharacter::MoveRight);
 	InputComponent->BindAxis("Turn", this, &AFPSCharacter::AddControllerYawInput); // the Character class defines the 2 needed functions already
 	InputComponent->BindAxis("LookUp", this, &AFPSCharacter::AddControllerPitchInput);
@@ -72,7 +92,26 @@ void AFPSCharacter::MoveForward(float Value)
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
 		
 		// boost speed if running
-		
+		if (isRunning && stamina > 0){ //running
+			CharacterMovement->MaxWalkSpeed = runSpeed;
+			stamina -= GetWorld()->GetDeltaSeconds(); //drain stamina
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Draining"));
+			}
+
+			// player enters fatigue after running out of stamina
+			if (stamina < 0){
+				stamina = -maxStamina;
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Entering Max Fatigue"));
+				}
+			}
+		}
+		else{ //walking
+			CharacterMovement->MaxWalkSpeed = walkSpeed;
+		}
 
 		AddMovementInput(Direction, Value);
 		
@@ -90,16 +129,16 @@ void AFPSCharacter::MoveForward(float Value)
 
 void AFPSCharacter::StartRunning()
 {
-	//isRunning = true;
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));
+	isRunning = true;
+	/*if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));*/
 }
 
 void AFPSCharacter::StopRunning()
 {
-	//isRunning = false;
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("WALKING"));
+	isRunning = false;
+	/*if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("WALKING"));*/
 }
 
 void AFPSCharacter::MoveRight(float Value)
