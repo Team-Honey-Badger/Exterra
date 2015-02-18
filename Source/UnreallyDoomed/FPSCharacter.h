@@ -25,6 +25,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
 		float maxStamina;
 
+	//is player running
+	UPROPERTY(BlueprintReadOnly)
+		bool isRunning;
+
+	//stamina is required to be able to run
+	UPROPERTY(BlueprintReadOnly)
+		float stamina;
+
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);
 
@@ -61,14 +69,6 @@ public:
 	//	TSubclassOf<class AFPSProjectile> ProjectileClass;
 
 protected:
-	
-	//is player running
-	UPROPERTY()
-		bool isRunning;
-
-	//stamina is required to be able to run
-	UPROPERTY()
-		float stamina;
 
 	//setup inputs
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;

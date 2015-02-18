@@ -20,7 +20,7 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 
 	//initialize vars
 	isRunning = false;
-	stamina = maxStamina;
+	stamina = maxStamina; // maybe allow BP to set starting stamina
 }
 
 void AFPSCharacter::BeginPlay()
