@@ -56,7 +56,7 @@ void AFPSCharacter::Tick(float DeltaTime)
 	if (!isRunning){
 		if (stamina < maxStamina){
 			stamina += GetWorld()->GetDeltaSeconds(); //recharge stamina
-			if (stamina < 0){
+			/*if (stamina < 0){
 				if (GEngine)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Fatigue Fading"));
@@ -67,13 +67,13 @@ void AFPSCharacter::Tick(float DeltaTime)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Charging"));
 				}
-			}
-			if (stamina > maxStamina){
+			}*/
+			/*if (stamina > maxStamina){
 				if (GEngine)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Restored Max Stamina"));
 				}
-			}
+			}*/
 		}
 	}
 }
@@ -117,18 +117,18 @@ void AFPSCharacter::MoveForward(float Value)
 			}
 			GetCharacterMovement()->MaxWalkSpeed = runSpeed;
 			stamina -= GetWorld()->GetDeltaSeconds(); //drain stamina
-			if (GEngine)
+			/*if (GEngine)
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Draining"));
-			}
+			}*/
 
 			// player enters fatigue after running out of stamina
 			if (stamina < 0){
 				stamina = -maxStamina;
-				if (GEngine)
+				/*if (GEngine)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Entering Max Fatigue"));
-				}
+				}*/
 			}
 		}
 		else{ //walking
