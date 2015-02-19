@@ -84,21 +84,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		UCameraComponent* FirstPersonCameraComponent;
 
-	///** Pawn mesh: 1st person view (arms; seen only by self) */
-	//UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	//	USkeletalMeshComponent* FirstPersonMesh;
-
-	////handles firing
-	//UFUNCTION()
-	//	void OnFire();
-
-	///** Gun muzzle's offset from the camera location */
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	//	FVector MuzzleOffset;
-
-	///** Projectile class to spawn */
-	//UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	//	TSubclassOf<class AFPSProjectile> ProjectileClass;
+	// ragdoll the character
+	UFUNCTION()
+		void Kill();
 
 protected:
 

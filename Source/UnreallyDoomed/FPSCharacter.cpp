@@ -9,7 +9,6 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 	// Create a CameraComponent 
 	FirstPersonCameraComponent = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>(this, TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->AttachParent = GetCapsuleComponent();
-	//FirstPersonCameraComponent->AttachParent = GetMesh()->GetBoneLocation(Head);
 
 	// Position the camera a bit above the eyes
 	//FirstPersonCameraComponent->RelativeLocation = FVector(0, 0, 50.0f + BaseEyeHeight);
@@ -84,6 +83,7 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Jump", IE_Released, this, &AFPSCharacter::OnStopJump);
 	InputComponent->BindAction("Sprint", IE_Pressed, this, &AFPSCharacter::StartRunning);
 	InputComponent->BindAction("Sprint", IE_Released, this, &AFPSCharacter::StopRunning);
+	InputComponent->BindAction("Suicide", IE_Pressed, this, &AFPSCharacter::Kill);
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::OnFire); // click to shoot
 }
 
@@ -150,6 +150,7 @@ void AFPSCharacter::StartRunning()
 {
 	if (GetVelocity() != FVector(0, 0, 0)){ // can only run if already moving
 		isRunning = true;
+		//PlaySoundAtLocation()
 	}
 	/*if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));*/
@@ -160,6 +161,12 @@ void AFPSCharacter::StopRunning()
 	isRunning = false;
 	/*if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("WALKING"));*/
+}
+
+void AFPSCharacter::Kill()
+{
+	GetCapsuleComponent()->SetSimulatePhysics(true);
+	GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
 }
 
 void AFPSCharacter::MoveRight(float Value)
