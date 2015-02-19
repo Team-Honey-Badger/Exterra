@@ -44,15 +44,15 @@ public:
 		float stamina;
 
 	//character health
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float health;
 
 	//character energy
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float energy;
 
 	//character ammo
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float ammo;
 
 	//Camera's initial position
