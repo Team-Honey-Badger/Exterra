@@ -15,6 +15,12 @@ AFPSGameMode::AFPSGameMode(const FObjectInitializer& ObjectInitializer)
 		DefaultPawnClass = (UClass*)PlayerPawnObject.Object->GeneratedClass;
 	}
 
+	// set default HUD class to our Blueprinted HUD
+	static ConstructorHelpers::FObjectFinder<UBlueprint> HUDObject(TEXT("Blueprint'/Game/UMG/MyHUD.MyHUD'"));
+	if (HUDObject.Object != NULL)
+	{
+		HUDClass = (UClass*)HUDObject.Object->GeneratedClass;
+	}
 	//HUDClass = AFPSHUD::StaticClass();
 }
 
