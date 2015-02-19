@@ -21,5 +21,4 @@ George:
 
 
 Alex:
-	FPSCharacter_AnimationBP
 	FPSMap (copy it if u must, but I'm using this one as my testing zone)
