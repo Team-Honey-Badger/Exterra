@@ -1,8 +1,6 @@
 //Always sync and then list the binary files you are about to lock down here, files will be restricted by whoever committed the file into the list first! Violators will be blamed!!!!!!!!!!!!!!!!!!! 
 
 Josh:
-	FPSCharacter_BP
-	SpawnRoom level
 
 
 

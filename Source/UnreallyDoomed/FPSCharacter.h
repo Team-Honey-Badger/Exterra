@@ -66,8 +66,16 @@ public:
 		FVector jumpingRelativeLoc;
 
 	//sound cues
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SoundCues)
 		USoundCue *jumpRunCue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SoundCues)
+		USoundCue *jumpCue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SoundCues)
+		USoundCue *footstepCue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SoundCues)
+		USoundCue *deathCue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SoundCues)
+		USoundCue *fallingCue;
 
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);

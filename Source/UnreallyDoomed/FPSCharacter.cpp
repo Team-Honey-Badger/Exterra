@@ -18,12 +18,6 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 
 	//enable ticking
 	CanEverTick();
-
-	//attach sound cues
-	//jumpRunCue = ObjectInitializer.CreateDefaultSubobject<USoundCue>(this, "SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'");
-	//static ConstructorHelpers::FObjectFinder<USoundCue> jumpRunCue(TEXT("SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'"));
-	//jumpRunCue = ObjectInitializer.CreateDefaultSubobject<USoundCue>(this, TEXT("SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'"));
-	//jumpRunCue->AddToRoot();
 }
 
 void AFPSCharacter::BeginPlay()
@@ -49,10 +43,19 @@ void AFPSCharacter::Tick(float DeltaTime)
 {
 	if (GetVelocity() == FVector(0, 0, 0)){ //if standing still	
 		FirstPersonCameraComponent->RelativeLocation = initialRelativeLoc;
+		//add idle sound here
 	}
 	else if (!GetCharacterMovement()->IsMovingOnGround()){
 		FirstPersonCameraComponent->RelativeLocation = jumpingRelativeLoc;
 	}
+	//else{
+	//	if (isRunning){ //running
+	//		PlaySoundOnActor(footstepCue);
+	//	}
+	//	else{ //walking
+	//		PlaySoundOnActor(footstepCue);
+	//	}
+	//}
 	if (!isRunning){
 		if (stamina < maxStamina){
 			stamina += GetWorld()->GetDeltaSeconds(); //recharge stamina
@@ -143,36 +146,25 @@ void AFPSCharacter::MoveForward(float Value)
 	}
 }
 
-//void AFPSCharacter::Run(float Value){
-//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));
-//	isRunning = true;
-//}
-//void AFPSCharacter::Walk(float Value){
-//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("MOVING"));
-//	MoveForward(Value);
-//}
 
 void AFPSCharacter::StartRunning()
 {
 	if (GetVelocity() != FVector(0, 0, 0)){ // can only run if already moving
 		isRunning = true;
-		//PlaySoundAtLocation()
 	}
-	/*if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));*/
 }
 
 void AFPSCharacter::StopRunning()
 {
 	isRunning = false;
-	/*if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("WALKING"));*/
+	
 }
 
 void AFPSCharacter::Kill()
 {
 	GetCapsuleComponent()->SetSimulatePhysics(true);
 	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
+	PlaySoundOnActor(deathCue); // death sound
 }
 
 void AFPSCharacter::MoveRight(float Value)
@@ -189,51 +181,18 @@ void AFPSCharacter::MoveRight(float Value)
 
 void AFPSCharacter::OnStartJump()
 {
-	/*if (isRunning){
-		PlaySoundOnActor(jumpRunCue);
-		if (GEngine)
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("****************************************************************"));
-	}*/
+	if (isRunning){ //run and jump
+		PlaySoundOnActor(jumpRunCue); //player sound effect
+		
+	}
+	else{ //just a jump
+		PlaySoundOnActor(jumpCue);
+	}
 	bPressedJump = true;
 }
 void AFPSCharacter::OnStopJump()
 {
 	bPressedJump = false;
 }
-
-//void AFPSCharacter::OnFire()
-//{
-//	// try and fire a projectile
-//	if (ProjectileClass != NULL)
-//	{
-//		// Get the camera transform
-//		FVector CameraLoc;
-//		FRotator CameraRot;
-//		GetActorEyesViewPoint(CameraLoc, CameraRot);
-//
-//		// MuzzleOffset is in camera space, so transform it to world space before offsetting from the camera to find the final muzzle position
-//		FVector const MuzzleLocation = CameraLoc + FTransform(CameraRot).TransformVector(MuzzleOffset);
-//		FRotator MuzzleRotation = CameraRot;
-//		MuzzleRotation.Pitch += 10.0f;          // skew the aim upwards a bit
-//		UWorld* const World = GetWorld();
-//
-//		if (World)
-//		{
-//			FActorSpawnParameters SpawnParams;
-//			SpawnParams.Owner = this;
-//			SpawnParams.Instigator = Instigator;
-//
-//			// spawn the projectile at the muzzle
-//			AFPSProjectile* const Projectile = World->SpawnActor<AFPSProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
-//
-//			if (Projectile)
-//			{
-//				// find launch direction
-//				FVector const LaunchDir = MuzzleRotation.Vector();
-//				Projectile->InitVelocity(LaunchDir);
-//			}
-//		}
-//	}
-//}
 
 
