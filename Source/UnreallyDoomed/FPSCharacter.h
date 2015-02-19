@@ -65,6 +65,10 @@ public:
 	UPROPERTY()
 		FVector jumpingRelativeLoc;
 
+	//sound cues
+	UPROPERTY()
+		USoundCue *jumpRunCue;
+
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);
 

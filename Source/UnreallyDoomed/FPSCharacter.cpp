@@ -18,6 +18,12 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 
 	//enable ticking
 	CanEverTick();
+
+	//attach sound cues
+	//jumpRunCue = ObjectInitializer.CreateDefaultSubobject<USoundCue>(this, "SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'");
+	//static ConstructorHelpers::FObjectFinder<USoundCue> jumpRunCue(TEXT("SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'"));
+	//jumpRunCue = ObjectInitializer.CreateDefaultSubobject<USoundCue>(this, TEXT("SoundCue'/Game/CharacterSounds/RunJumpCue.RunJumpCue'"));
+	//jumpRunCue->AddToRoot();
 }
 
 void AFPSCharacter::BeginPlay()
@@ -27,10 +33,10 @@ void AFPSCharacter::BeginPlay()
 	//initialize vars
 	isRunning = false;
 	stamina = maxStamina; // maybe allow BP to set starting stamina
-	initialRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(5, 0, 0);
-	runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(25, 0, -30);
+	initialRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
+	runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
 	jumpingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
-	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(5, 0, 0);
+	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
 	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
 
 	if (GEngine)
@@ -166,7 +172,7 @@ void AFPSCharacter::StopRunning()
 void AFPSCharacter::Kill()
 {
 	GetCapsuleComponent()->SetSimulatePhysics(true);
-	GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
+	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
 }
 
 void AFPSCharacter::MoveRight(float Value)
@@ -183,6 +189,11 @@ void AFPSCharacter::MoveRight(float Value)
 
 void AFPSCharacter::OnStartJump()
 {
+	/*if (isRunning){
+		PlaySoundOnActor(jumpRunCue);
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("****************************************************************"));
+	}*/
 	bPressedJump = true;
 }
 void AFPSCharacter::OnStopJump()
