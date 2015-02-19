@@ -23,16 +23,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
 		float crouchSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+		float defaultJumpZVelocity;
+
+	// stat meters
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float maxStamina;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float maxHealth;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float maxEnergy;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float maxAmmo;
 
 	//is player running
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly)									//can't be edited with blueprints, only read
 		bool isRunning;
 
 	//stamina is required to be able to run
@@ -50,6 +54,16 @@ public:
 	//character ammo
 	UPROPERTY(BlueprintReadOnly)
 		float ammo;
+
+	//Camera's initial position
+	UPROPERTY()
+		FVector initialRelativeLoc;
+	UPROPERTY()
+		FVector walkingRelativeLoc;
+	UPROPERTY()
+		FVector runningRelativeLoc;
+	UPROPERTY()
+		FVector jumpingRelativeLoc;
 
 	// Constructor for AFPSCharacter
 	AFPSCharacter(const FObjectInitializer& ObjectInitializer);

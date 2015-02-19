@@ -9,23 +9,30 @@ AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
 	// Create a CameraComponent 
 	FirstPersonCameraComponent = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>(this, TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->AttachParent = GetCapsuleComponent();
+	//FirstPersonCameraComponent->AttachParent = GetMesh()->GetBoneLocation(Head);
 
 	// Position the camera a bit above the eyes
-	FirstPersonCameraComponent->RelativeLocation = FVector(0, 0, 50.0f + BaseEyeHeight);
+	//FirstPersonCameraComponent->RelativeLocation = FVector(0, 0, 50.0f + BaseEyeHeight);
+
 	// Allow the pawn to control rotation.
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
 	//enable ticking
 	CanEverTick();
-
-	//initialize vars
-	isRunning = false;
-	stamina = maxStamina; // maybe allow BP to set starting stamina
 }
 
 void AFPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//initialize vars
+	isRunning = false;
+	stamina = maxStamina; // maybe allow BP to set starting stamina
+	initialRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(5, 0, 0);
+	runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(25, 0, -30);
+	jumpingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
+	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(5, 0, 0);
+	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
 
 	if (GEngine)
 	{
@@ -35,6 +42,12 @@ void AFPSCharacter::BeginPlay()
 
 void AFPSCharacter::Tick(float DeltaTime)
 {
+	if (GetVelocity() == FVector(0, 0, 0)){ //if standing still	
+		FirstPersonCameraComponent->RelativeLocation = initialRelativeLoc;
+	}
+	else if (!GetCharacterMovement()->IsMovingOnGround()){
+		FirstPersonCameraComponent->RelativeLocation = jumpingRelativeLoc;
+	}
 	if (!isRunning){
 		if (stamina < maxStamina){
 			stamina += GetWorld()->GetDeltaSeconds(); //recharge stamina
@@ -93,7 +106,10 @@ void AFPSCharacter::MoveForward(float Value)
 		
 		// boost speed if running
 		if (isRunning && stamina > 0){ //running
-			CharacterMovement->MaxWalkSpeed = runSpeed;
+			if (GetCharacterMovement()->IsMovingOnGround()){ //if not jumping
+				FirstPersonCameraComponent->RelativeLocation = runningRelativeLoc;
+			}
+			GetCharacterMovement()->MaxWalkSpeed = runSpeed;
 			stamina -= GetWorld()->GetDeltaSeconds(); //drain stamina
 			if (GEngine)
 			{
@@ -110,7 +126,10 @@ void AFPSCharacter::MoveForward(float Value)
 			}
 		}
 		else{ //walking
-			CharacterMovement->MaxWalkSpeed = walkSpeed;
+			if (GetCharacterMovement()->IsMovingOnGround()){
+				FirstPersonCameraComponent->RelativeLocation = walkingRelativeLoc;
+			}
+			GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 		}
 
 		AddMovementInput(Direction, Value);
@@ -129,7 +148,9 @@ void AFPSCharacter::MoveForward(float Value)
 
 void AFPSCharacter::StartRunning()
 {
-	isRunning = true;
+	if (GetVelocity() != FVector(0, 0, 0)){ // can only run if already moving
+		isRunning = true;
+	}
 	/*if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("RUNNING"));*/
 }
