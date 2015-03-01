@@ -78,7 +78,7 @@ public:
 		USoundCue *fallingCue;
 
 	// Constructor for AFPSCharacter
-	AFPSCharacter(const FObjectInitializer& ObjectInitializer);
+	AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/);
 
 	virtual void BeginPlay() override;
 

@@ -3,11 +3,11 @@
 #include "UnreallyDoomed.h"
 #include "FPSCharacter.h"
 
-AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
-: Super(ObjectInitializer)
+AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
+: Super(/*ObjectInitializer*/)
 {
 	// Create a CameraComponent 
-	FirstPersonCameraComponent = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>(this, TEXT("FirstPersonCamera"));
+	FirstPersonCameraComponent = /*ObjectInitializer.*/CreateDefaultSubobject<UCameraComponent>(/*this, */TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->AttachParent = GetCapsuleComponent();
 
 	// Position the camera a bit above the eyes
