@@ -2,10 +2,20 @@
 
 #include "UnreallyDoomed.h"
 #include "FPSCharacter.h"
+#include "Weapon.h"
 
 AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 : Super(/*ObjectInitializer*/)
 {
+	static ConstructorHelpers::FObjectFinder<UBlueprint> WeaponBlueprint(TEXT("Blueprint'/Game/Weapons/Weapon.Weapon'"));
+
+	WeaponSpawn = NULL;
+
+	if (WeaponBlueprint.Succeeded())
+	{
+		WeaponSpawn = (UClass*)WeaponBlueprint.Object->GeneratedClass;
+	}
+
 	// Create a CameraComponent 
 	FirstPersonCameraComponent = /*ObjectInitializer.*/CreateDefaultSubobject<UCameraComponent>(/*this, */TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->AttachParent = GetCapsuleComponent();
@@ -23,6 +33,16 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 void AFPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = Instigator;
+	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn, SpawnParams);
+	if (Spawner)
+	{
+		Spawner->AttachRootComponentTo(Mesh,"Weapon_Socket",EAttachLocation::SnapToTarget);
+		CurrentWeapon = Spawner;
+	}
+
 
 	//initialize vars
 	isRunning = false;
@@ -92,9 +112,11 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Jump", IE_Released, this, &AFPSCharacter::OnStopJump);
 	InputComponent->BindAction("Sprint", IE_Pressed, this, &AFPSCharacter::StartRunning);
 	InputComponent->BindAction("Sprint", IE_Released, this, &AFPSCharacter::StopRunning);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::FireWeapon);
 	InputComponent->BindAction("Suicide", IE_Pressed, this, &AFPSCharacter::Kill);
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::OnFire); // click to shoot
 }
+
 
 void AFPSCharacter::MoveForward(float Value)
 {
@@ -194,5 +216,12 @@ void AFPSCharacter::OnStopJump()
 {
 	bPressedJump = false;
 }
+
+void AFPSCharacter::FireWeapon()
+{
+	CurrentWeapon->Fire();
+}
+
+
 
 

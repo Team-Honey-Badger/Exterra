@@ -100,6 +100,16 @@ public:
 	UFUNCTION()
 		void Kill();
 
+	//Weapon Related Stuffs
+	UFUNCTION()
+	void FireWeapon();
+
+	UPROPERTY(VisibleAnywhere, Category = Spawn)
+	TSubclassOf<class AWeapon> WeaponSpawn;
+
+	AWeapon *CurrentWeapon;
+	
+
 protected:
 
 	//setup inputs
