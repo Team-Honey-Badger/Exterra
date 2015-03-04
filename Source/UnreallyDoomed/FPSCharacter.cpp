@@ -37,12 +37,6 @@ void AFPSCharacter::BeginPlay()
 	SpawnParams.Owner = this;
 	SpawnParams.Instigator = Instigator;
 	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn, SpawnParams);
-	if (Spawner)
-	{
-		Spawner->AttachRootComponentTo(Mesh,"Weapon_Socket",EAttachLocation::SnapToTarget);
-		CurrentWeapon = Spawner;
-	}
-
 
 	//initialize vars
 	isRunning = false;
@@ -52,6 +46,12 @@ void AFPSCharacter::BeginPlay()
 	jumpingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
 	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
 	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
+
+	if (Spawner)
+	{
+		Spawner->AttachRootComponentTo(Mesh, "RightHand", EAttachLocation::SnapToTarget);
+		CurrentWeapon = Spawner;
+	}
 
 	if (GEngine)
 	{
