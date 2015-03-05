@@ -49,7 +49,7 @@ void AFPSCharacter::BeginPlay()
 
 	if (Spawner)
 	{
-		Spawner->AttachRootComponentTo(Mesh, "RightHand", EAttachLocation::SnapToTarget);
+		Spawner->AttachRootComponentTo(Mesh, "WeaponSocket", EAttachLocation::SnapToTarget);
 		CurrentWeapon = Spawner;
 	}
 

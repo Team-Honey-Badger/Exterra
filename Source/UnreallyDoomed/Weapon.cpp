@@ -8,15 +8,14 @@
 // Sets default values
 AWeapon::AWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	//PrimaryActorTick.bCanEverTick = true; //i may use this later but for now i'm commenting it out
+ 	 //Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true; //i may use this later but for now i'm commenting it out
 
 	CollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionComp"));
 
-	RootComponent = CollisionComp;
-
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
 
+	RootComponent = WeaponMesh;
 }
 
 void AWeapon::Fire()
