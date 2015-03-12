@@ -111,6 +111,10 @@ public:
 	UFUNCTION()
 	void FireWeapon();
 
+	void EquipPistol();
+	void EquipShotgun();
+	void EquipRocketLauncher();
+
 	UPROPERTY(VisibleAnywhere, Category = Spawn)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
