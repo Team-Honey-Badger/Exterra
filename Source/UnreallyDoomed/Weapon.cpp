@@ -15,7 +15,7 @@ AWeapon::AWeapon()
 
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
 
-	RootComponent = WeaponMesh;
+	RootComponent = CollisionComp;
 }
 
 void AWeapon::Fire()

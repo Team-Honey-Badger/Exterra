@@ -2,6 +2,10 @@
 
 #pragma once
 
+#include "Weapon.h"
+#include "Pistol.h"
+#include "Shotgun.h"
+#include "RocketLauncher.h"
 #include "GameFramework/Character.h"
 #include "FPSCharacter.generated.h"
 
@@ -96,6 +100,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		UCameraComponent* FirstPersonCameraComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
+		UBoxComponent* CollisionComp;
+
 	// ragdoll the character
 	UFUNCTION()
 		void Kill();
@@ -109,6 +116,10 @@ public:
 
 	AWeapon *CurrentWeapon;
 	
+	UFUNCTION()
+	void OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
+	TArray<TSubclassOf<AWeapon>> Inventory;
 
 protected:
 

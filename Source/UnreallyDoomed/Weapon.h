@@ -26,6 +26,9 @@ struct FWeaponData
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 	float WeaponSpread;
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	FString Name;
 };
 
 UENUM(BlueprintType)

@@ -7,14 +7,12 @@
 AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 : Super(/*ObjectInitializer*/)
 {
-	static ConstructorHelpers::FObjectFinder<UBlueprint> WeaponBlueprint(TEXT("Blueprint'/Game/Weapons/Weapon.Weapon'"));
 
-	WeaponSpawn = NULL;
+	Inventory.SetNum(3, false);
 
-	if (WeaponBlueprint.Succeeded())
-	{
-		WeaponSpawn = (UClass*)WeaponBlueprint.Object->GeneratedClass;
-	}
+	CollisionComp = CreateDefaultSubobject<UBoxComponent>("CollisionComp");
+	CollisionComp->AttachTo(RootComponent);
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &AFPSCharacter::OnCollision);
 
 	// Create a CameraComponent 
 	FirstPersonCameraComponent = /*ObjectInitializer.*/CreateDefaultSubobject<UCameraComponent>(/*this, */TEXT("FirstPersonCamera"));
@@ -33,10 +31,10 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 void AFPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.Owner = this;
-	SpawnParams.Instigator = Instigator;
-	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn, SpawnParams);
+	//FActorSpawnParameters SpawnParams;
+	//SpawnParams.Owner = this;
+	//SpawnParams.Instigator = Instigator;
+	//AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn, SpawnParams);
 
 	//initialize vars
 	isRunning = false;
@@ -47,11 +45,11 @@ void AFPSCharacter::BeginPlay()
 	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
 	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
 
-	if (Spawner)
-	{
-		Spawner->AttachRootComponentTo(Mesh, "WeaponSocket", EAttachLocation::SnapToTarget);
-		CurrentWeapon = Spawner;
-	}
+	//if (Spawner)
+	//{
+	//	Spawner->AttachRootComponentTo(Mesh, "WeaponSocket", EAttachLocation::SnapToTarget);
+	//	CurrentWeapon = Spawner;
+	//}
 
 	if (GEngine)
 	{
@@ -112,9 +110,8 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Jump", IE_Released, this, &AFPSCharacter::OnStopJump);
 	InputComponent->BindAction("Sprint", IE_Pressed, this, &AFPSCharacter::StartRunning);
 	InputComponent->BindAction("Sprint", IE_Released, this, &AFPSCharacter::StopRunning);
-	InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::FireWeapon);
+	//InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::FireWeapon);
 	InputComponent->BindAction("Suicide", IE_Pressed, this, &AFPSCharacter::Kill);
-	//InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::OnFire); // click to shoot
 }
 
 
@@ -222,6 +219,30 @@ void AFPSCharacter::FireWeapon()
 	CurrentWeapon->Fire();
 }
 
+void AFPSCharacter::OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+{
+	APistol *Pistol = Cast<APistol>(OtherActor);
+	if (Pistol)
+	{
+		Inventory[0] = Pistol->GetClass();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + Pistol->WeaponConfig.Name);
+		Pistol->Destroy();
+	}
+	AShotgun *Shotgun = Cast<AShotgun>(OtherActor);
+	if (Shotgun)
+	{
+		Inventory[1] = Shotgun->GetClass();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + Shotgun->WeaponConfig.Name);
+		Shotgun->Destroy();
+	}
+	ARocketLauncher *RocketLauncher = Cast<ARocketLauncher>(OtherActor);
+	if (RocketLauncher)
+	{
+		Inventory[2] = RocketLauncher->GetClass();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + RocketLauncher->WeaponConfig.Name);
+		RocketLauncher->Destroy();
+	}
+}
 
 
 
