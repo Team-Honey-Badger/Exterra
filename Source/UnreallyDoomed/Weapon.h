@@ -7,6 +7,15 @@
 
 #define TRACE_WEAPON ECC_GameTraceChannel1
 
+UENUM(BlueprintType)
+namespace EWeaponProjectile{
+	enum ProjectileType{
+		eBullet		UMETA(DisplayName = "Bullet"),
+		eSpread		UMETA(DisplayName = "Spread"),
+		eProjectile UMETA(DisplayName = "Projectile"),
+	};
+}
+
 USTRUCT()
 struct FWeaponData
 {
@@ -31,15 +40,6 @@ struct FWeaponData
 	FString Name;
 };
 
-UENUM(BlueprintType)
-namespace EWeaponProjectile{
-	enum ProjectileType{
-		eBullet		UMETA(DisplayName = "Bullet"),
-		eSpread		UMETA(DisplayName = "Spread"),
-		eProjectile UMETA(DisplayName = "Projectile"),
-	};
-}
-
 UCLASS()
 class UNREALLYDOOMED_API AWeapon : public AActor
 {
@@ -48,11 +48,11 @@ class UNREALLYDOOMED_API AWeapon : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AWeapon();
-	//// Called when the game starts or when spawned
-	//virtual void BeginPlay() override;
-	//
-	//// Called every frame
-	//virtual void Tick( float DeltaSeconds ) override;
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
+	// Called every frame
+	virtual void Tick( float DeltaSeconds ) override;
 
 
 	UFUNCTION()

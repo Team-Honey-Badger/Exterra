@@ -8,6 +8,7 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 : Super(/*ObjectInitializer*/)
 {
 	CurrentWeapon = NULL;
+	WeaponSpawn = NULL;
 
 	Inventory.SetNum(3, false);
 
@@ -48,7 +49,7 @@ void AFPSCharacter::BeginPlay()
 
 	//if (Spawner)
 	//{
-	//	Spawner->AttachRootComponentTo(Mesh, "WeaponSocket", EAttachLocation::SnapToTarget);
+	//	Spawner->AttachRootComponentTo(Mesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 	//	CurrentWeapon = Spawner;
 	//}
 
@@ -276,20 +277,18 @@ void AFPSCharacter::EquipPistol()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 2.f ,FColor::Red, CurrentWeapon->GetActorLocation().ToString());
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Spawner WeaponMesh to Component " + Spawner->WeaponMesh->GetComponentTransform().ToString());
 
 }
 
@@ -314,14 +313,14 @@ void AFPSCharacter::EquipShotgun()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
@@ -350,14 +349,14 @@ void AFPSCharacter::EquipRocketLauncher()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "WeaponSocket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}

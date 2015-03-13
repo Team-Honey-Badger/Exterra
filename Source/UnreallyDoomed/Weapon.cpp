@@ -9,11 +9,13 @@
 AWeapon::AWeapon()
 {
  	 //Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	//PrimaryActorTick.bCanEverTick = true; //i may use this later but for now i'm commenting it out
+	PrimaryActorTick.bCanEverTick = true; //i may use this later but for now i'm commenting it out
 
 	CollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionComp"));
-	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
 	RootComponent = CollisionComp;
+
+	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
+	WeaponMesh->AttachTo(RootComponent);
 }
 
 void AWeapon::Fire()
@@ -72,17 +74,17 @@ void AWeapon::ProcessInstantHit(const FHitResult &Impact, const FVector &Origin,
 	DrawDebugLine(this->GetWorld(), Origin, Impact.TraceEnd, FColor::Black, true, 10000, 10.f);
 }
 
-//// Called when the game starts or when spawned
-//void AWeapon::BeginPlay()
-//{
-//	Super::BeginPlay();
-//	
-//}
+// Called when the game starts or when spawned
+void AWeapon::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
 
-//// Called every frame
-//void AWeapon::Tick( float DeltaTime )
-//{
-//	Super::Tick( DeltaTime );
-//
-//}
+// Called every frame
+void AWeapon::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+
+}
 
