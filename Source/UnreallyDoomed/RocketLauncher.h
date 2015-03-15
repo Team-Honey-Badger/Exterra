@@ -13,7 +13,7 @@ class UNREALLYDOOMED_API ARocketLauncher : public AWeapon
 {
 	GENERATED_BODY()
 	
-	
+	virtual	void ProjectileFire() override;
 	
 	
 };

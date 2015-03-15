@@ -32,6 +32,7 @@ void AWeapon::Fire()
 	}
 	if (ProjectileType == EWeaponProjectile::eProjectile) {
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Projectile"));
+		ProjectileFire();
 	}
 }
 
@@ -48,6 +49,12 @@ void AWeapon::InstantFire()
 	const FHitResult Impact = WeaponTrace(StartTrace, EndTrace);
 
 	ProcessInstantHit(Impact, StartTrace, ShootDir, randomSeed, currentSpread);
+}
+
+void AWeapon::ProjectileFire()
+{
+	//nothing is going to be in here
+	//calls the one in Rocket
 }
 
 FHitResult AWeapon::WeaponTrace(const FVector &TraceFrom, const FVector &TraceTo) const
@@ -72,7 +79,15 @@ void AWeapon::ProcessInstantHit(const FHitResult &Impact, const FVector &Origin,
 	const FVector EndPoint = Impact.GetActor() ? Impact.ImpactPoint : EndTrace;
 
 	DrawDebugLine(this->GetWorld(), Origin, Impact.TraceEnd, FColor::Black, true, 10000, 10.f);
+
+	AEnemy *Enemy = Cast<AEnemy>(Impact.GetActor());
+	if (Enemy)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU HIT AN ENEMY!!");
+		Enemy->Destroy();
+	}
 }
+
 
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()

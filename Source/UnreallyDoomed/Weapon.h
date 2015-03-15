@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "Rocket.h"
+#include "Enemy.h"
 #include "Weapon.generated.h"
 
 #define TRACE_WEAPON ECC_GameTraceChannel1
@@ -61,6 +63,9 @@ public:
 	UFUNCTION()
 	void InstantFire();
 
+	UFUNCTION()
+	virtual void ProjectileFire();
+
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 	FWeaponData WeaponConfig;
 
@@ -72,6 +77,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Config)
 	USkeletalMeshComponent* WeaponMesh;
+
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	TSubclassOf<class ARocket> ProjectileClass;
 
 protected:
 	FHitResult WeaponTrace(const FVector &TraceFrom, const FVector &TraceTo) const;
