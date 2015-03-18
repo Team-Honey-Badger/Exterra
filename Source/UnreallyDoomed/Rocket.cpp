@@ -12,7 +12,7 @@ ARocket::ARocket()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CollisionComp = CreateDefaultSubobject<USphereComponent>("CollisionComp");
-	CollisionComp->InitSphereRadius(5.0f);
+	CollisionComp->InitSphereRadius(50.0f);
 	//CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentBeginOverlap.AddDynamic(this,&ARocket::OnCollision);
 	RootComponent = CollisionComp;
