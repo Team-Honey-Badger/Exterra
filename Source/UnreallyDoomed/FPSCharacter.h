@@ -6,6 +6,7 @@
 #include "Pistol.h"
 #include "Shotgun.h"
 #include "RocketLauncher.h"
+#include "AssaultRifle.h"
 #include "GameFramework/Character.h"
 #include "FPSCharacter.generated.h"
 
@@ -112,6 +113,7 @@ public:
 	void EquipPistol();
 	void EquipShotgun();
 	void EquipRocketLauncher();
+	void EquipAssaultRifle();
 
 	UPROPERTY(VisibleAnywhere, Category = Spawn)
 	TSubclassOf<class AWeapon> WeaponSpawn;
