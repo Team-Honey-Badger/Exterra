@@ -12,15 +12,15 @@ ARocket::ARocket()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CollisionComp = CreateDefaultSubobject<USphereComponent>("CollisionComp");
-	CollisionComp->InitSphereRadius(50.0f);
+	CollisionComp->InitSphereRadius(10.0f);
 	//CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentBeginOverlap.AddDynamic(this,&ARocket::OnCollision);
 	RootComponent = CollisionComp;
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileComp");
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	ProjectileMovement->InitialSpeed = 3000.f;
-	ProjectileMovement->MaxSpeed = 3000.f;
+	ProjectileMovement->InitialSpeed = 1000.f;
+	ProjectileMovement->MaxSpeed = 1000.f;
 	ProjectileMovement->bRotationFollowsVelocity = false;
 	ProjectileMovement->bShouldBounce = false;
 
