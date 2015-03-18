@@ -86,6 +86,11 @@ void AWeapon::ProcessInstantHit(const FHitResult &Impact, const FVector &Origin,
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU HIT AN ENEMY!!");
 		Enemy->Destroy();
 	}
+
+	// Deal damage to the hit actor
+	if (Impact.GetActor()){
+		Impact.GetActor()->TakeDamage(WeaponConfig.BulletDamageAmount, FDamageEvent(), GetInstigatorController(), this);
+	}
 }
 
 
