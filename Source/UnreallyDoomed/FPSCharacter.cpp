@@ -70,10 +70,10 @@ void AFPSCharacter::Tick(float DeltaTime)
 	}
 	//else{
 	//	if (isRunning){ //running
-	//		PlaySoundOnActor(footstepCue);
+	//		UGameplayStatics::PlaySoundAttached(footstepCue);
 	//	}
 	//	else{ //walking
-	//		PlaySoundOnActor(footstepCue);
+	//		UGameplayStatics::PlaySoundAttached(footstepCue);
 	//	}
 	//}
 	if (!isRunning){
@@ -140,6 +140,7 @@ void AFPSCharacter::MoveForward(float Value)
 		
 		// boost speed if running
 		if (isRunning && stamina > 0){ //running
+			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 			if (GetCharacterMovement()->IsMovingOnGround()){ //if not jumping
 				FirstPersonCameraComponent->RelativeLocation = runningRelativeLoc;
 			}
@@ -189,7 +190,7 @@ void AFPSCharacter::Kill()
 {
 	GetCapsuleComponent()->SetSimulatePhysics(true);
 	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
-	PlaySoundOnActor(deathCue); // death sound
+	UGameplayStatics::PlaySoundAttached(deathCue, GetMesh()); // death sound
 }
 
 void AFPSCharacter::MoveRight(float Value)
@@ -207,13 +208,14 @@ void AFPSCharacter::MoveRight(float Value)
 void AFPSCharacter::OnStartJump()
 {
 	if (isRunning){ //run and jump
-		PlaySoundOnActor(jumpRunCue); //player sound effect
+		UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
 		
 	}
 	else{ //just a jump
-		PlaySoundOnActor(jumpCue);
+		UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
 	}
 	bPressedJump = true;
+	PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 }
 void AFPSCharacter::OnStopJump()
 {
@@ -225,6 +227,7 @@ void AFPSCharacter::FireWeapon()
 	if (CurrentWeapon != NULL)
 	{
 		CurrentWeapon->Fire();
+		PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 	}
 	else
 	{
