@@ -189,7 +189,7 @@ void AFPSCharacter::StopRunning()
 
 void AFPSCharacter::Kill()
 {
-	GetCapsuleComponent()->SetSimulatePhysics(true);
+	//GetCapsuleComponent()->SetSimulatePhysics(true);
 	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
 	UGameplayStatics::PlaySoundAttached(deathCue, GetMesh()); // death sound
 }

@@ -104,7 +104,7 @@ public:
 		UBoxComponent* CollisionComp;
 
 	// ragdoll the character
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "Pawn")
 		void Kill();
 
 	//Weapon Related Stuffs
