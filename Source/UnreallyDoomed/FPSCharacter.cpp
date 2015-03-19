@@ -10,7 +10,7 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 	CurrentWeapon = NULL;
 	WeaponSpawn = NULL;
 
-	Inventory.SetNum(4, false);
+	Inventory.SetNum(5, false);
 
 	CollisionComp = CreateDefaultSubobject<UBoxComponent>("CollisionComp");
 	CollisionComp->AttachTo(RootComponent);
@@ -117,6 +117,7 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Shotgun", IE_Pressed, this, &AFPSCharacter::EquipShotgun);
 	InputComponent->BindAction("Rocket Launcher", IE_Pressed, this, &AFPSCharacter::EquipRocketLauncher);
 	InputComponent->BindAction("Assault Rifle", IE_Pressed, this, &AFPSCharacter::EquipAssaultRifle);
+	InputComponent->BindAction("Submachine Gun", IE_Pressed, this, &AFPSCharacter::EquipSMG);
 	InputComponent->BindAction("Suicide", IE_Pressed, this, &AFPSCharacter::Kill);
 }
 
@@ -188,7 +189,7 @@ void AFPSCharacter::StopRunning()
 
 void AFPSCharacter::Kill()
 {
-	GetCapsuleComponent()->SetSimulatePhysics(true);
+	//GetCapsuleComponent()->SetSimulatePhysics(true);
 	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
 	UGameplayStatics::PlaySoundAttached(deathCue, GetMesh()); // death sound
 }
@@ -265,6 +266,14 @@ void AFPSCharacter::OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherCo
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + AssaultRifle->WeaponConfig.Name);
 		AssaultRifle->Destroy();
 	}
+
+	ASMG *SMG = Cast<ASMG>(OtherActor);
+	if (SMG)
+	{
+		Inventory[4] = SMG->GetClass();
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + SMG->WeaponConfig.Name);
+		SMG->Destroy();
+	}
 }
 
 void AFPSCharacter::EquipPistol()
@@ -277,7 +286,7 @@ void AFPSCharacter::EquipPistol()
 	{
 		if (CurrentWeapon != NULL)
 		{
-			for (int32 counter = 0; counter < 4; counter++)
+			for (int32 counter = 0; counter < 5; counter++)
 			{
 				if (Inventory[counter] != NULL && Inventory[counter]->GetDefaultObject<AWeapon>()->WeaponConfig.Name == CurrentWeapon->WeaponConfig.Name)
 				{
@@ -313,7 +322,7 @@ void AFPSCharacter::EquipShotgun()
 	{
 		if (CurrentWeapon != NULL)
 		{
-			for (int32 counter = 0; counter < 4; counter++)
+			for (int32 counter = 0; counter < 5; counter++)
 			{
 				if (Inventory[counter] != NULL && Inventory[counter]->GetDefaultObject<AWeapon>()->WeaponConfig.Name == CurrentWeapon->WeaponConfig.Name)
 				{
@@ -349,7 +358,7 @@ void AFPSCharacter::EquipRocketLauncher()
 	{
 		if (CurrentWeapon != NULL)
 		{
-			for (int32 counter = 0; counter < 4; counter++)
+			for (int32 counter = 0; counter < 5; counter++)
 			{
 				if (Inventory[counter] != NULL && Inventory[counter]->GetDefaultObject<AWeapon>()->WeaponConfig.Name == CurrentWeapon->WeaponConfig.Name)
 				{
@@ -385,7 +394,7 @@ void AFPSCharacter::EquipAssaultRifle()
 	{
 		if (CurrentWeapon != NULL)
 		{
-			for (int32 counter = 0; counter < 4; counter++)
+			for (int32 counter = 0; counter < 5; counter++)
 			{
 				if (Inventory[counter] != NULL && Inventory[counter]->GetDefaultObject<AWeapon>()->WeaponConfig.Name == CurrentWeapon->WeaponConfig.Name)
 				{
@@ -408,6 +417,39 @@ void AFPSCharacter::EquipAssaultRifle()
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 	}
+}
 
-
+void AFPSCharacter::EquipSMG()
+{
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = Instigator;
+	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(Inventory[4], SpawnParams);
+	if (Spawner)
+	{
+		if (CurrentWeapon != NULL)
+		{
+			for (int32 counter = 0; counter < 5; counter++)
+			{
+				if (Inventory[counter] != NULL && Inventory[counter]->GetDefaultObject<AWeapon>()->WeaponConfig.Name == CurrentWeapon->WeaponConfig.Name)
+				{
+					Inventory[counter] = NULL;
+					Inventory[counter] = CurrentWeapon->GetClass();
+					GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I Put " + CurrentWeapon->WeaponConfig.Name + " Away in Slot " + FString::FromInt(counter));
+				}
+			}
+			CurrentWeapon->Destroy();
+			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			CurrentWeapon = Spawner;
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
+		}
+		else
+		{
+			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			CurrentWeapon = Spawner;
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
+		}
+	}
 }
