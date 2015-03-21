@@ -53,5 +53,11 @@ void ARocket::OnCollision(AActor *OtherActor, UPrimitiveComponent *OtherComp, in
 			Enemy->Destroy();
 			Destroy();
 		}
+
+		// Deal damage to the hit actor
+		if (OtherActor){			//George needs to repace this hardcoded number
+			OtherActor->TakeDamage(/*WeaponConfig.BulletDamageAmount*/100, FDamageEvent(), GetInstigatorController(), this);
+			this->Destroy();
+		}
 	}
 }
