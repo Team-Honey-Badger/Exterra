@@ -26,6 +26,15 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 	// Allow the pawn to control rotation.
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
+	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMesh"));
+	FirstPersonMesh->SetOnlyOwnerSee(true);         // only the owning player will see this mesh
+	FirstPersonMesh->AttachParent = FirstPersonCameraComponent;
+	FirstPersonMesh->bCastDynamicShadow = false;
+	FirstPersonMesh->CastShadow = false;
+
+	//makes it so the fps arms cannot see the tps model
+	GetMesh()->SetOwnerNoSee(true); 
+
 	//enable ticking
 	CanEverTick();
 }
@@ -297,14 +306,14 @@ void AFPSCharacter::EquipPistol()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
@@ -333,14 +342,14 @@ void AFPSCharacter::EquipShotgun()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
@@ -369,14 +378,14 @@ void AFPSCharacter::EquipRocketLauncher()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
@@ -405,14 +414,14 @@ void AFPSCharacter::EquipAssaultRifle()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
@@ -440,14 +449,14 @@ void AFPSCharacter::EquipSMG()
 			}
 			CurrentWeapon->Destroy();
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
 		else
 		{
 			Spawner->CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			Spawner->AttachRootComponentTo(GetMesh(), "Weapon_Socket", EAttachLocation::SnapToTarget);
+			Spawner->AttachRootComponentTo(FirstPersonMesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
 			CurrentWeapon = Spawner;
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "My Current Weapon is " + CurrentWeapon->WeaponConfig.Name);
 		}
