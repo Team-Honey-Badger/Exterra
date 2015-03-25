@@ -46,18 +46,17 @@ void ARocket::OnCollision(AActor *OtherActor, UPrimitiveComponent *OtherComp, in
 {
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		AEnemy *Enemy = Cast<AEnemy>(OtherActor);
-		if (Enemy)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU BLEW UP AN ENEMY!!");
-			Enemy->Destroy();
-			Destroy();
-		}
+		//AEnemy *Enemy = Cast<AEnemy>(OtherActor);
+		//if (Enemy)
+		//{
+		//	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU BLEW UP AN ENEMY!!");
+		//	Enemy->Destroy();
+		//	Destroy();
+		//}
 
 		// Deal damage to the hit actor
 		if (OtherActor){			//George needs to repace this hardcoded number
 			OtherActor->TakeDamage(/*WeaponConfig.BulletDamageAmount*/100, FDamageEvent(), GetInstigatorController(), this);
-			this->Destroy();
 		}
 	}
 }
