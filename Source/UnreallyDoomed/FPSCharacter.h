@@ -137,6 +137,8 @@ public:
 
 	TArray<TSubclassOf<AWeapon>> Inventory;
 
+	void ProcessWeaponPickup(AWeapon *Weapon);
+
 	UFUNCTION()
 	virtual void BeginPlay() override;
 

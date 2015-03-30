@@ -245,7 +245,7 @@ void AFPSCharacter::FireWeapon()
 		if ((CurrentWeapon->WeaponConfig.Name == "Assault Rifle") || (CurrentWeapon->WeaponConfig.Name == "SMG"))
 		{
 			isFiring = true;
-			CurrentWeapon->Fire();
+			//CurrentWeapon->Fire();
 			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 		}
 		else

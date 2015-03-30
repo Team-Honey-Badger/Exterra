@@ -43,6 +43,9 @@ struct FWeaponData
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
 	float BulletDamageAmount; //Damage per bullet to actors
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	int32 priority;
 };
 
 UCLASS()
