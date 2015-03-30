@@ -108,6 +108,11 @@ void AFPSCharacter::Tick(float DeltaTime)
 			}*/
 		}
 	}
+
+	if (isFiring)
+	{
+		CurrentWeapon->Fire();
+	}
 }
 
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
@@ -122,6 +127,7 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Sprint", IE_Pressed, this, &AFPSCharacter::StartRunning);
 	InputComponent->BindAction("Sprint", IE_Released, this, &AFPSCharacter::StopRunning);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::FireWeapon);
+	InputComponent->BindAction("Fire", IE_Released, this, &AFPSCharacter::stopFireWeapon);
 	InputComponent->BindAction("Pistol",IE_Pressed, this, &AFPSCharacter::EquipPistol);
 	InputComponent->BindAction("Shotgun", IE_Pressed, this, &AFPSCharacter::EquipShotgun);
 	InputComponent->BindAction("Rocket Launcher", IE_Pressed, this, &AFPSCharacter::EquipRocketLauncher);
@@ -236,13 +242,27 @@ void AFPSCharacter::FireWeapon()
 {
 	if (CurrentWeapon != NULL)
 	{
-		CurrentWeapon->Fire();
-		PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
+		if ((CurrentWeapon->WeaponConfig.Name == "Assault Rifle") || (CurrentWeapon->WeaponConfig.Name == "SMG"))
+		{
+			isFiring = true;
+			CurrentWeapon->Fire();
+			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
+		}
+		else
+		{
+			CurrentWeapon->Fire();
+			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
+		}
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "No Weapon Eqipped Currently");
 	}
+}
+
+void AFPSCharacter::stopFireWeapon()
+{
+	isFiring = false;
 }
 
 void AFPSCharacter::OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)

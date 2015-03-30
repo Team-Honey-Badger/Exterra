@@ -45,6 +45,9 @@ public:
 	UPROPERTY(BlueprintReadOnly)									//can't be edited with blueprints, only read
 		bool isRunning;
 
+	UPROPERTY(BlueprintReadOnly)
+		bool isFiring;
+
 	//stamina is required to be able to run
 	UPROPERTY(BlueprintReadOnly)
 		float stamina;
@@ -114,6 +117,9 @@ public:
 	//Weapon Related Stuffs
 	UFUNCTION()
 	void FireWeapon();
+
+	UFUNCTION()
+	void stopFireWeapon();
 
 	void EquipPistol();
 	void EquipShotgun();
