@@ -2,6 +2,7 @@
 
 #include "UnreallyDoomed.h"
 #include "Weapon.h"
+#include "FPSCharacter.h"
 #include "Engine.h"
 
 
@@ -34,6 +35,44 @@ void AWeapon::Fire()
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Projectile"));
 		ProjectileFire();
 	}
+}
+
+void AWeapon::SetOwningPawn(AFPSCharacter *NewOwner)
+{
+	if (MyPawn != NewOwner)
+	{
+		Instigator = NewOwner;
+		MyPawn = NewOwner;
+	}
+}
+
+void AWeapon::OnEquip()
+{
+	CollisionComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	AttachToPlayer();
+}
+
+void AWeapon::OnUnEquip()
+{
+	DetachFromPlayer();
+}
+
+void AWeapon::AttachToPlayer()
+{
+	if (MyPawn)
+	{
+		DetachFromPlayer();
+
+		USkeletalMeshComponent *Character = MyPawn->FirstPersonMesh;
+		WeaponMesh->SetHiddenInGame(false);
+		WeaponMesh->AttachTo(Character, "Weapon_Socket");
+	}
+}
+
+void AWeapon::DetachFromPlayer()
+{
+	WeaponMesh->DetachFromParent();
+	WeaponMesh->SetHiddenInGame(true);
 }
 
 void AWeapon::InstantFire()

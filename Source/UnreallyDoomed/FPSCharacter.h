@@ -121,13 +121,13 @@ public:
 	UFUNCTION()
 	void stopFireWeapon();
 
-	void EquipPistol();
-	void EquipShotgun();
-	void EquipRocketLauncher();
-	void EquipAssaultRifle();
-	void EquipSMG();
+	//void EquipPistol();
+	//void EquipShotgun();
+	//void EquipRocketLauncher();
+	//void EquipAssaultRifle();
+	//void EquipSMG();
 
-	UPROPERTY(VisibleAnywhere, Category = Spawn)
+	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
 	AWeapon *CurrentWeapon;
@@ -135,11 +135,16 @@ public:
 	UFUNCTION()
 	void OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-	TArray<TSubclassOf<AWeapon>> Inventory;
+	TArray<class AWeapon*> Inventory;
 
 	void ProcessWeaponPickup(AWeapon *Weapon);
 
-	UFUNCTION()
+	void NextWeapon();
+	void PrevWeapon();
+	void EquipWeapon(AWeapon *Weapon);
+	void GiveDefaultWeapons();
+
+	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
 
 protected:

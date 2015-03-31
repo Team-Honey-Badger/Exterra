@@ -1,11 +1,11 @@
-
-
 #pragma once
 
 #include "GameFramework/Actor.h"
 #include "Rocket.h"
 #include "Enemy.h"
 #include "Weapon.generated.h"
+
+class AFPSCharacter; //forward declaration
 
 #define TRACE_WEAPON ECC_GameTraceChannel1
 
@@ -27,6 +27,9 @@ struct FWeaponData
 	int32 MaxAmmo;
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
+	int32 MaxClip;
+
+	UPROPERTY(EditDefaultsOnly, Category = Config)
 	float TimeBetweenShots;
 
 	UPROPERTY(EditDefaultsOnly, Category = Ammo)
@@ -45,7 +48,8 @@ struct FWeaponData
 	float BulletDamageAmount; //Damage per bullet to actors
 
 	UPROPERTY(EditDefaultsOnly, Category = Config)
-	int32 priority;
+	int32 Priority;
+
 };
 
 UCLASS()
@@ -87,9 +91,25 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
 	TSubclassOf<class ARocket> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
+	int32 CurrentAmmo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
+	int32 CurrentClip;
+
+	void SetOwningPawn(AFPSCharacter *NewOwner);
+
+	void AttachToPlayer();
+	void DetachFromPlayer();
+
+	void OnEquip();
+	void OnUnEquip();
+
 protected:
 	FHitResult WeaponTrace(const FVector &TraceFrom, const FVector &TraceTo) const;
 
 	void ProcessInstantHit(const FHitResult &Impact, const FVector &Origin, const FVector &ShootDir, int32 RandomSeed, float ReticleSpeed);
+
+	AFPSCharacter *MyPawn;
 
 };
