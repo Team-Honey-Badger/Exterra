@@ -121,11 +121,11 @@ public:
 	UFUNCTION()
 	void stopFireWeapon();
 
-	//void EquipPistol();
-	//void EquipShotgun();
-	//void EquipRocketLauncher();
-	//void EquipAssaultRifle();
-	//void EquipSMG();
+	void EquipPistol();
+	void EquipShotgun();
+	void EquipRocketLauncher();
+	void EquipAssaultRifle();
+	void EquipSMG();
 
 	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
