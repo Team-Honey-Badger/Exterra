@@ -18,37 +18,40 @@ namespace EWeaponProjectile{
 	};
 }
 
-USTRUCT()
+USTRUCT(Blueprintable)
 struct FWeaponData
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditDefaultsOnly, Category = Ammo)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
 	int32 MaxAmmo;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	int32 MaxClip;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	float TimeBetweenShots;
 
-	UPROPERTY(EditDefaultsOnly, Category = Ammo)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
 	int32 shotCost;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	float WeaponRange;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	float WeaponSpread;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	FString Name;
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	float BulletDamageAmount; //Damage per bullet to actors
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	int32 Priority;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
+	UTexture2D* SplashArt;
 
 };
 
