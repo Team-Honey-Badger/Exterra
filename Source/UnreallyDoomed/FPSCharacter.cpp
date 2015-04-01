@@ -431,25 +431,40 @@ void AFPSCharacter::EquipWeapon(AWeapon *Weapon)
 
 void AFPSCharacter::EquipPistol()
 {
-	EquipWeapon(Inventory[0]);
+	if (Inventory[0] != NULL)
+	{
+		EquipWeapon(Inventory[0]);
+	}
 }
 
 void AFPSCharacter::EquipSMG()
 {
-	EquipWeapon(Inventory[1]);
+	if (Inventory[1] != NULL)
+	{
+		EquipWeapon(Inventory[1]);
+	}
 }
 
 void AFPSCharacter::EquipShotgun()
 {
-	EquipWeapon(Inventory[2]);
+	if (Inventory[2] != NULL)
+	{
+		EquipWeapon(Inventory[2]);
+	}
 }
 
 void AFPSCharacter::EquipAssaultRifle()
 {
-	EquipWeapon(Inventory[3]);
+	if (Inventory[3] != NULL)
+	{
+		EquipWeapon(Inventory[3]);
+	}
 }
 
 void AFPSCharacter::EquipRocketLauncher()
 {
-	EquipWeapon(Inventory[4]);
+	if (Inventory[4] != NULL)
+	{
+		EquipWeapon(Inventory[4]);
+	}
 }
