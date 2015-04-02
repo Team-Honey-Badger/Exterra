@@ -20,6 +20,10 @@ class UNREALLYDOOMED_API AFPSCharacter : public ACharacter
 	GENERATED_BODY()
 	
 public:
+	//BP functions called in Cpp
+	UFUNCTION(BlueprintImplementableEvent, Category = "Code Triggered")
+		void extendedTick();
+	//virtual void extendedTick_Implementation();
 
 	// movement variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement) //can be edited in blueprints
@@ -130,7 +134,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
+<<<<<<< HEAD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Actor)
+=======
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DefaultInv)
+>>>>>>> origin/master
 	AWeapon *CurrentWeapon;
 	
 	UFUNCTION()
