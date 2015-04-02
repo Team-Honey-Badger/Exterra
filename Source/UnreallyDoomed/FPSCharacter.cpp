@@ -50,10 +50,15 @@ void AFPSCharacter::BeginPlay()
 	//initialize vars
 	isRunning = false;
 	stamina = maxStamina; // maybe allow BP to set starting stamina
+
+	//adjust camera (disabled atm because we swithced to a first person mesh)
 	initialRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
-	runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
+	runningRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
+	jumpingRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
+	walkingRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
+	/*runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
 	jumpingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
-	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
+	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);*/
 	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
 
 	//if (Spawner)
@@ -231,11 +236,14 @@ void AFPSCharacter::MoveRight(float Value)
 void AFPSCharacter::OnStartJump()
 {
 	if (isRunning){ //run and jump
-		UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
-		
+		//UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
+		if (!GetCharacterMovement()->IsFalling())
+			UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
 	}
 	else{ //just a jump
-		UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
+		//UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
+		if (!GetCharacterMovement()->IsFalling())
+			UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
 	}
 	bPressedJump = true;
 	PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
