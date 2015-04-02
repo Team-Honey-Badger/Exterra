@@ -130,6 +130,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AWeapon *CurrentWeapon;
 	
 	UFUNCTION()

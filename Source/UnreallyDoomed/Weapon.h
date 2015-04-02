@@ -79,10 +79,10 @@ public:
 	UFUNCTION()
 	virtual void ProjectileFire();
 
-	UPROPERTY(EditDefaultsOnly, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	FWeaponData WeaponConfig;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Config)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	TEnumAsByte<EWeaponProjectile::ProjectileType> ProjectileType;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
@@ -91,7 +91,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Config)
 	USkeletalMeshComponent* WeaponMesh;
 
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Projectile)
 	TSubclassOf<class ARocket> ProjectileClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
