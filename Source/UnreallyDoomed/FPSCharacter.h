@@ -134,12 +134,13 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Actor)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Actor)
 	AWeapon *CurrentWeapon;
 	
 	UFUNCTION()
 	void OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+	UPROPERTY(VisibleAnywhere, Category = Inventory)
 	TArray<class AWeapon*> Inventory;
 
 	void ProcessWeaponPickup(AWeapon *Weapon);
@@ -147,7 +148,7 @@ public:
 	void NextWeapon();
 	void PrevWeapon();
 	void EquipWeapon(AWeapon *Weapon);
-	void GiveDefaultWeapons();
+	//void GiveDefaultWeapons();
 
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
