@@ -134,11 +134,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = DefaultInv)
 	TSubclassOf<class AWeapon> WeaponSpawn;
 
-<<<<<<< HEAD
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Actor)
-=======
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DefaultInv)
->>>>>>> origin/master
 	AWeapon *CurrentWeapon;
 	
 	UFUNCTION()
