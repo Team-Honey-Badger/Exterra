@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{1073FA1D-0132-4B37-B540-A52CD3C764B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{EE78A9CA-9972-4F66-B191-34678B30C6E5}"
+=======
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{837B9C2B-3632-43D3-84D1-70E683E18C54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{99E9F6B7-517E-4953-AEEA-703802C73CA7}"
+>>>>>>> origin/master
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnreallyDoomed", "Intermediate\ProjectFiles\UnreallyDoomed.vcxproj", "{8D835557-10E0-47E9-A09A-95B8AC1F8AA0}"
 EndProject
@@ -40,7 +46,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+<<<<<<< HEAD
 		{8D835557-10E0-47E9-A09A-95B8AC1F8AA0} = {EE78A9CA-9972-4F66-B191-34678B30C6E5}
 		{28100BCE-0DD9-4B74-A781-96C4DAAA30A7} = {1073FA1D-0132-4B37-B540-A52CD3C764B3}
+=======
+		{28100BCE-0DD9-4B74-A781-96C4DAAA30A7} = {837B9C2B-3632-43D3-84D1-70E683E18C54}
+		{8D835557-10E0-47E9-A09A-95B8AC1F8AA0} = {99E9F6B7-517E-4953-AEEA-703802C73CA7}
+>>>>>>> origin/master
 	EndGlobalSection
 EndGlobal
