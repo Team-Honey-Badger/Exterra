@@ -67,7 +67,7 @@ void AFPSCharacter::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("First Person Character In Use"));
 	}
 
-	GiveDefaultWeapons();
+	//GiveDefaultWeapons();
 }
 
 void AFPSCharacter::Tick(float DeltaTime)
@@ -272,57 +272,21 @@ void AFPSCharacter::stopFireWeapon()
 	isFiring = false;
 }
 
-void AFPSCharacter::GiveDefaultWeapons()
-{
-	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn);
-	if (Spawner)
-	{
-		Inventory[Spawner->WeaponConfig.Priority] = Spawner;
-		CurrentWeapon = Inventory[Spawner->WeaponConfig.Priority];
-		CurrentWeapon->SetOwningPawn(this);
-		CurrentWeapon->OnEquip();
-	}
-}
+//void AFPSCharacter::GiveDefaultWeapons()
+//{
+//	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn);
+//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Weapon Spawn is" + Spawner->WeaponConfig.Name);
+//	//if (Spawner)
+//	//{
+//	//	Inventory[Spawner->WeaponConfig.Priority] = Spawner;
+//	//	CurrentWeapon = Inventory[Spawner->WeaponConfig.Priority];
+//	//	CurrentWeapon->SetOwningPawn(this);
+//	//	CurrentWeapon->OnEquip();
+//	//}
+//}
 
 void AFPSCharacter::OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
-	//APistol *Pistol = Cast<APistol>(OtherActor);
-	//if (Pistol)
-	//{
-	//	Inventory[0] = Pistol->GetClass();
-	//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + Pistol->WeaponConfig.Name);
-	//	Pistol->Destroy();
-	//}
-	//AShotgun *Shotgun = Cast<AShotgun>(OtherActor);
-	//if (Shotgun)
-	//{
-	//	Inventory[1] = Shotgun->GetClass();
-	//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + Shotgun->WeaponConfig.Name);
-	//	Shotgun->Destroy();
-	//}
-	//ARocketLauncher *RocketLauncher = Cast<ARocketLauncher>(OtherActor);
-	//if (RocketLauncher)
-	//{
-	//	Inventory[2] = RocketLauncher->GetClass();
-	//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + RocketLauncher->WeaponConfig.Name);
-	//	RocketLauncher->Destroy();
-	//}
-	//AAssaultRifle *AssaultRifle = Cast<AAssaultRifle>(OtherActor);
-	//if (AssaultRifle)
-	//{
-	//	Inventory[3] = AssaultRifle->GetClass();
-	//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + AssaultRifle->WeaponConfig.Name);
-	//	AssaultRifle->Destroy();
-	//}
-
-	//ASMG *SMG = Cast<ASMG>(OtherActor);
-	//if (SMG)
-	//{
-	//	Inventory[4] = SMG->GetClass();
-	//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "I just picked up a" + SMG->WeaponConfig.Name);
-	//	SMG->Destroy();
-	//}
-
 	AWeapon *Weapon = Cast<AWeapon>(OtherActor);
 	if (Weapon)
 	{
@@ -365,51 +329,65 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 
 void AFPSCharacter::NextWeapon()
 {
-	if (Inventory[CurrentWeapon->WeaponConfig.Priority]->WeaponConfig.Priority != Inventory.Num()-1)
+	if (CurrentWeapon != NULL)
 	{
-		if (Inventory[CurrentWeapon->WeaponConfig.Priority + 1] == NULL)
+		if (Inventory[CurrentWeapon->WeaponConfig.Priority]->WeaponConfig.Priority != Inventory.Num() - 1)
 		{
-			for (int32 counter = CurrentWeapon->WeaponConfig.Priority + 1; counter < Inventory.Num(); counter++)
+			if (Inventory[CurrentWeapon->WeaponConfig.Priority + 1] == NULL)
 			{
-				if (Inventory[counter] && Inventory[counter]->IsA(AWeapon::StaticClass()))
+				for (int32 counter = CurrentWeapon->WeaponConfig.Priority + 1; counter < Inventory.Num(); counter++)
 				{
-					EquipWeapon(Inventory[counter]);
+					if (Inventory[counter] && Inventory[counter]->IsA(AWeapon::StaticClass()))
+					{
+						EquipWeapon(Inventory[counter]);
+					}
 				}
+			}
+			else
+			{
+				EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority + 1]);
 			}
 		}
 		else
 		{
-			EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority + 1]);
+			EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority]);
 		}
 	}
 	else
 	{
-		EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority]);
+		
 	}
 }
 
 void AFPSCharacter::PrevWeapon()
 {
-	if (Inventory[CurrentWeapon->WeaponConfig.Priority]->WeaponConfig.Priority != 0)
+	if (CurrentWeapon != NULL)
 	{
-		if (Inventory[CurrentWeapon->WeaponConfig.Priority - 1] == NULL)
+		if (Inventory[CurrentWeapon->WeaponConfig.Priority]->WeaponConfig.Priority != 0)
 		{
-			for (int32 counter = CurrentWeapon->WeaponConfig.Priority - 1; counter >= 0 ; counter--)
+			if (Inventory[CurrentWeapon->WeaponConfig.Priority - 1] == NULL)
 			{
-				if (Inventory[counter] && Inventory[counter]->IsA(AWeapon::StaticClass()))
+				for (int32 counter = CurrentWeapon->WeaponConfig.Priority - 1; counter >= 0; counter--)
 				{
-					EquipWeapon(Inventory[counter]);
+					if (Inventory[counter] && Inventory[counter]->IsA(AWeapon::StaticClass()))
+					{
+						EquipWeapon(Inventory[counter]);
+					}
 				}
+			}
+			else
+			{
+				EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority - 1]);
 			}
 		}
 		else
 		{
-			EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority - 1]);
+			EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority]);
 		}
 	}
 	else
 	{
-		EquipWeapon(Inventory[CurrentWeapon->WeaponConfig.Priority]);
+
 	}
 }
 

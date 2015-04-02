@@ -147,7 +147,7 @@ public:
 	void NextWeapon();
 	void PrevWeapon();
 	void EquipWeapon(AWeapon *Weapon);
-	void GiveDefaultWeapons();
+	//void GiveDefaultWeapons();
 
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;
