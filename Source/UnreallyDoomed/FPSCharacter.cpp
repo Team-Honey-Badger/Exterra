@@ -81,10 +81,10 @@ void AFPSCharacter::Tick(float DeltaTime)
 	}
 	//else{
 	//	if (isRunning){ //running
-	//		UGameplayStatics::PlaySoundAttached(footstepCue);
+	//		UGameplayStatics::PlaySoundAttached(footstepCue, GetMesh());
 	//	}
 	//	else{ //walking
-	//		UGameplayStatics::PlaySoundAttached(footstepCue);
+	//		UGameplayStatics::PlaySoundAttached(footstepCue, GetMesh());
 	//	}
 	//}
 	if (!isRunning){
@@ -115,6 +115,9 @@ void AFPSCharacter::Tick(float DeltaTime)
 	{
 		CurrentWeapon->Fire();
 	}
+
+	//let the BP tick too by calling it's tick function
+	extendedTick();
 }
 
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
@@ -468,3 +471,4 @@ void AFPSCharacter::EquipRocketLauncher()
 		EquipWeapon(Inventory[4]);
 	}
 }
+
