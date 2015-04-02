@@ -94,6 +94,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Projectile)
 	TSubclassOf<class ARocket> ProjectileClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = Config)
+	USoundCue *FireSound;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	int32 CurrentAmmo;
 
@@ -107,6 +110,10 @@ public:
 
 	void OnEquip();
 	void OnUnEquip();
+	
+	void ReloadAmmo();
+
+	UAudioComponent* PlayWeaponSound(USoundCue *Sound);
 
 protected:
 	FHitResult WeaponTrace(const FVector &TraceFrom, const FVector &TraceTo) const;

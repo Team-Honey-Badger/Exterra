@@ -22,18 +22,45 @@ AWeapon::AWeapon()
 void AWeapon::Fire()
 {
 	if (ProjectileType == EWeaponProjectile::eBullet) {
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Bullet"));
-		InstantFire();
+		if (CurrentClip > 0)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Bullet"));
+			InstantFire();
+			PlayWeaponSound(FireSound);
+			CurrentClip -= WeaponConfig.shotCost;
+		}
+		else
+		{
+			ReloadAmmo();
+		}
 	}
 	if (ProjectileType == EWeaponProjectile::eSpread) {
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Spread"));
-		for (int32 counter = 0; counter <= WeaponConfig.WeaponSpread; counter++) {
-			InstantFire();
+		if (CurrentClip > 0)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Spread"));
+			for (int32 counter = 0; counter <= WeaponConfig.WeaponSpread; counter++) {
+				InstantFire();
+			}
+			PlayWeaponSound(FireSound);
+			CurrentClip -= WeaponConfig.shotCost;
+		}
+		else
+		{
+			ReloadAmmo();
 		}
 	}
 	if (ProjectileType == EWeaponProjectile::eProjectile) {
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Projectile"));
-		ProjectileFire();
+		if (CurrentClip > 0)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, TEXT("Projectile"));
+			ProjectileFire();
+			PlayWeaponSound(FireSound);
+			CurrentClip -= WeaponConfig.shotCost;
+		}
+		else
+		{
+			ReloadAmmo();
+		}
 	}
 }
 
@@ -75,19 +102,40 @@ void AWeapon::DetachFromPlayer()
 	WeaponMesh->SetHiddenInGame(true);
 }
 
+void AWeapon::ReloadAmmo()
+{
+	if (CurrentAmmo > 0)
+	{
+		if (CurrentAmmo < WeaponConfig.MaxClip)
+		{
+			CurrentClip = CurrentAmmo;
+		}
+		else
+		{
+			CurrentAmmo -= WeaponConfig.MaxClip;
+			CurrentClip += WeaponConfig.MaxClip;
+		}
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, "NO AMMO!!!");
+	}
+}
+
 void AWeapon::InstantFire()
 {
-	const int32 randomSeed = FMath::Rand();
-	FRandomStream WeaponRandomStream(randomSeed);
-	const float currentSpread = WeaponConfig.WeaponSpread;
-	const float SpreadCone = FMath::DegreesToRadians(WeaponConfig.WeaponSpread * 0.5);
-	const FVector AimDir = WeaponMesh->GetSocketRotation("MF").Vector();
-	const FVector StartTrace = WeaponMesh->GetSocketLocation("MF");
-	const FVector ShootDir = WeaponRandomStream.VRandCone(AimDir, SpreadCone, SpreadCone);
-	const FVector EndTrace = StartTrace + ShootDir * WeaponConfig.WeaponRange;
-	const FHitResult Impact = WeaponTrace(StartTrace, EndTrace);
 
-	ProcessInstantHit(Impact, StartTrace, ShootDir, randomSeed, currentSpread);
+		const int32 randomSeed = FMath::Rand();
+		FRandomStream WeaponRandomStream(randomSeed);
+		const float currentSpread = WeaponConfig.WeaponSpread;
+		const float SpreadCone = FMath::DegreesToRadians(WeaponConfig.WeaponSpread * 0.5);
+		const FVector AimDir = WeaponMesh->GetSocketRotation("MF").Vector();
+		const FVector StartTrace = WeaponMesh->GetSocketLocation("MF");
+		const FVector ShootDir = WeaponRandomStream.VRandCone(AimDir, SpreadCone, SpreadCone);
+		const FVector EndTrace = StartTrace + ShootDir * WeaponConfig.WeaponRange;
+		const FHitResult Impact = WeaponTrace(StartTrace, EndTrace);
+
+		ProcessInstantHit(Impact, StartTrace, ShootDir, randomSeed, currentSpread);
 }
 
 void AWeapon::ProjectileFire()
@@ -147,3 +195,13 @@ void AWeapon::Tick( float DeltaTime )
 
 }
 
+UAudioComponent* AWeapon::PlayWeaponSound(USoundCue *Sound)
+{
+	UAudioComponent *AC = NULL;
+	if (Sound && MyPawn)
+	{
+		AC = UGameplayStatics::PlaySoundAttached(Sound, MyPawn->GetRootComponent());
+	}
+
+	return AC;
+}

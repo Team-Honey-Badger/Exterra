@@ -346,7 +346,7 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 			if ((Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo >= 0) && (Weapon->CurrentAmmo <= Inventory[Weapon->WeaponConfig.Priority]->WeaponConfig.MaxAmmo - Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo))
 			{
 				Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo += Weapon->CurrentAmmo;
-				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Added" + Weapon->CurrentAmmo);
+				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Added: " + Weapon->GetName() + Weapon->CurrentAmmo);
 				Weapon->Destroy();
 			}
 			else
