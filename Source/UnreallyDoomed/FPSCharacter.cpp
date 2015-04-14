@@ -111,7 +111,7 @@ void AFPSCharacter::Tick(float DeltaTime)
 				if (GEngine)
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Restored Max Stamina"));
-				}
+				}is
 			}*/
 		}
 	}

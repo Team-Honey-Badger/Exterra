@@ -52,7 +52,6 @@ struct FWeaponData
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	UTexture2D* SplashArt;
-
 };
 
 UCLASS()
@@ -102,6 +101,21 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Config)
 	int32 CurrentClip;
+
+	/** name of bone/socket for muzzle in weapon mesh */
+	UPROPERTY(EditDefaultsOnly, Category = Effects)
+	FName MuzzleAttachPoint;
+
+	/** FX for muzzle flash */
+	UPROPERTY(EditDefaultsOnly, Category = Effects)
+	UParticleSystem* MuzzleFX;
+
+	/** spawned component for muzzle FX */
+	UPROPERTY(Transient)
+	UParticleSystemComponent* MuzzlePSC;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool isFlash;
 
 	void SetOwningPawn(AFPSCharacter *NewOwner);
 

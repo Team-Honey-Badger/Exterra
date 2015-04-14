@@ -28,6 +28,11 @@ void AWeapon::Fire()
 			InstantFire();
 			PlayWeaponSound(FireSound);
 			CurrentClip -= WeaponConfig.shotCost;
+			if (MuzzleFX)
+			{
+				USkeletalMeshComponent* UseWeaponMesh = WeaponMesh;
+				MuzzlePSC = UGameplayStatics::SpawnEmitterAttached(MuzzleFX, UseWeaponMesh, MuzzleAttachPoint);
+			}
 		}
 		else
 		{
@@ -43,6 +48,11 @@ void AWeapon::Fire()
 			}
 			PlayWeaponSound(FireSound);
 			CurrentClip -= WeaponConfig.shotCost;
+			if (MuzzleFX)
+			{
+				USkeletalMeshComponent* UseWeaponMesh = WeaponMesh;
+				MuzzlePSC = UGameplayStatics::SpawnEmitterAttached(MuzzleFX, UseWeaponMesh, MuzzleAttachPoint);
+			}
 		}
 		else
 		{
@@ -56,6 +66,11 @@ void AWeapon::Fire()
 			ProjectileFire();
 			PlayWeaponSound(FireSound);
 			CurrentClip -= WeaponConfig.shotCost;
+			if (MuzzleFX)
+			{
+				USkeletalMeshComponent* UseWeaponMesh = WeaponMesh;
+				MuzzlePSC = UGameplayStatics::SpawnEmitterAttached(MuzzleFX, UseWeaponMesh, MuzzleAttachPoint);
+			}
 		}
 		else
 		{
@@ -192,7 +207,6 @@ void AWeapon::BeginPlay()
 void AWeapon::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
 }
 
 UAudioComponent* AWeapon::PlayWeaponSound(USoundCue *Sound)
