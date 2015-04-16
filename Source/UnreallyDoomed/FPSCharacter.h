@@ -67,6 +67,10 @@ public:
 	//character ammo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
 		float ammo;
+	
+	//character keys
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stats)
+		float keys;
 
 	//Camera's initial position
 	UPROPERTY()
