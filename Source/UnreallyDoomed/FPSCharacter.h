@@ -95,7 +95,7 @@ public:
 		USoundCue *fallingCue;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleDefaultsOnly, Category = Character)
 		USkeletalMeshComponent* FirstPersonMesh;
 
 	// Constructor for AFPSCharacter

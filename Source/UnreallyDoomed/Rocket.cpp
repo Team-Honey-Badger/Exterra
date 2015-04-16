@@ -55,7 +55,9 @@ void ARocket::OnCollision(AActor *OtherActor, UPrimitiveComponent *OtherComp, in
 		//}
 
 		// Deal damage to the hit actor
-		if (OtherActor){			//George needs to repace this hardcoded number
+		if (!OtherActor->GetActorClass()->GetName().Contains("FPSCharacter"))
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::White, "OtherActor is " + OtherActor->GetActorClass()->GetName());
 			OtherActor->TakeDamage(/*WeaponConfig.BulletDamageAmount*/100, FDamageEvent(), GetInstigatorController(), this);
 		}
 	}

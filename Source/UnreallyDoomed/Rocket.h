@@ -3,8 +3,9 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "Enemy.h"
 #include "Rocket.generated.h"
+
+class AWeapon;
 
 UCLASS()
 class UNREALLYDOOMED_API ARocket : public AActor
