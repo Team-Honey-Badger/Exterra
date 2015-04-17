@@ -17,10 +17,13 @@ AWeapon::AWeapon()
 
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
 	WeaponMesh->AttachTo(RootComponent);
+
+	//DeltaTime = 0;
 }
 
 void AWeapon::Fire()
 {
+	//this->DeltaTime = DeltaTime;
 	if (ProjectileType == EWeaponProjectile::eBullet) {
 		if (CurrentClip > 0)
 		{

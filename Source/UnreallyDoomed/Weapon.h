@@ -70,7 +70,7 @@ public:
 
 
 	UFUNCTION()
-	void Fire();
+		void Fire();
 
 	UFUNCTION()
 	void InstantFire();
