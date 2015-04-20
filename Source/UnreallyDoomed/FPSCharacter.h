@@ -124,16 +124,7 @@ public:
 
 	//Weapon Related Stuffs
 	UFUNCTION()
-		void FireWeapon();
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapons)
-		float firerate;
-
-	UPROPERTY()
-		float firerateCooldown;
-
-	UPROPERTY()
-		float deltaTimeTracker;
+	void FireWeapon();
 
 	UFUNCTION()
 	void stopFireWeapon();

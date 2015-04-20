@@ -9,9 +9,6 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 {
 	CurrentWeapon = NULL;
 	WeaponSpawn = NULL;
-	//firerate = 0.3; //firerate of guns
-	firerateCooldown = 0; //start cooled down
-	deltaTimeTracker = 0;
 
 	Inventory.SetNum(5, false);
 
@@ -80,8 +77,6 @@ void AFPSCharacter::BeginPlay()
 
 void AFPSCharacter::Tick(float DeltaTime)
 {
-	deltaTimeTracker = DeltaTime;
-	
 	if (GetVelocity() == FVector(0, 0, 0)){ //if standing still	
 		FirstPersonCameraComponent->RelativeLocation = initialRelativeLoc;
 		//add idle sound here
@@ -270,13 +265,8 @@ void AFPSCharacter::FireWeapon()
 		}
 		else
 		{
-			firerateCooldown -= deltaTimeTracker;
-			if (firerateCooldown <= 0){
-				firerateCooldown = firerate;
-				CurrentWeapon->Fire();
-				PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
-			}
-
+			CurrentWeapon->Fire();
+			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 		}
 	}
 	else
