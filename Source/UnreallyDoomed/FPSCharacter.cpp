@@ -9,7 +9,7 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 {
 	CurrentWeapon = NULL;
 	WeaponSpawn = NULL;
-	//firerate = 0.3; //firerate of guns
+	firerate = 0.3; //firerate of guns
 	firerateCooldown = 0; //start cooled down
 	deltaTimeTracker = 0;
 
