@@ -131,20 +131,42 @@ void AWeapon::ReloadAmmo()
 {
 	if (CurrentAmmo > 0)
 	{
-		if (CurrentAmmo < WeaponConfig.MaxClip)
+		if (CurrentClip == 0)
 		{
-			CurrentClip = CurrentAmmo;
+			if (CurrentAmmo < WeaponConfig.MaxClip)
+			{
+				CurrentClip = CurrentAmmo;
+			}
+			else
+			{
+				CurrentAmmo -= WeaponConfig.MaxClip;
+				CurrentClip += WeaponConfig.MaxClip;
+			}
 		}
 		else
 		{
-			CurrentAmmo -= WeaponConfig.MaxClip;
-			CurrentClip += WeaponConfig.MaxClip;
+			if (CurrentAmmo < WeaponConfig.MaxClip)
+			{
+				CurrentClip = CurrentAmmo;
+			}
+			else
+			{
+				int32 ammoNeeded = WeaponConfig.MaxClip - CurrentClip;
+				CurrentClip += ammoNeeded;
+				CurrentAmmo -= ammoNeeded;
+			}
 		}
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, "NO AMMO!!!");
 	}
+}
+
+void AWeapon::ClearAmmo()
+{
+	CurrentAmmo = 0;
+	CurrentClip = 0;
 }
 
 //the instant, ray trace firing system, used for all non-projectile weapons.

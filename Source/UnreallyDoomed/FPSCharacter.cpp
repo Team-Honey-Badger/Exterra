@@ -138,6 +138,7 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAction("Sprint", IE_Released, this, &AFPSCharacter::StopRunning);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSCharacter::FireWeapon);
 	InputComponent->BindAction("Fire", IE_Released, this, &AFPSCharacter::stopFireWeapon);
+	InputComponent->BindAction("Reload", IE_Pressed, this, &AFPSCharacter::reloadWeapon);
 	InputComponent->BindAction("Pistol",IE_Pressed, this, &AFPSCharacter::EquipPistol);
 	InputComponent->BindAction("Shotgun", IE_Pressed, this, &AFPSCharacter::EquipShotgun);
 	InputComponent->BindAction("Rocket Launcher", IE_Pressed, this, &AFPSCharacter::EquipRocketLauncher);
@@ -251,6 +252,23 @@ void AFPSCharacter::OnStartJump()
 void AFPSCharacter::OnStopJump()
 {
 	bPressedJump = false;
+}
+
+void AFPSCharacter::reloadWeapon()
+{
+	if (CurrentWeapon != NULL)
+	{
+		CurrentWeapon->ReloadAmmo();
+	}
+}
+
+void AFPSCharacter::clearAmmo()
+{
+	if (CurrentWeapon != NULL)
+	{
+		CurrentWeapon->ClearAmmo();
+	}
+
 }
 
 void AFPSCharacter::FireWeapon()

@@ -127,6 +127,12 @@ public:
 	void FireWeapon();
 
 	UFUNCTION()
+	void reloadWeapon();
+
+	UFUNCTION()
+	void clearAmmo();
+
+	UFUNCTION()
 	void stopFireWeapon();
 
 	void EquipPistol();

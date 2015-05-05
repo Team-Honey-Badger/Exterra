@@ -127,6 +127,8 @@ public:
 	
 	void ReloadAmmo();
 
+	void ClearAmmo();
+
 	UAudioComponent* PlayWeaponSound(USoundCue *Sound);
 
 protected:
