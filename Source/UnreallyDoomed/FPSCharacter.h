@@ -129,7 +129,7 @@ public:
 	UFUNCTION()
 	void reloadWeapon();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "Pawn")
 	void clearAmmo();
 
 	UFUNCTION()
