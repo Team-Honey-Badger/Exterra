@@ -163,6 +163,7 @@ void AWeapon::ReloadAmmo()
 	}
 }
 
+//clear our the clip and the ammo of the weapon
 void AWeapon::ClearAmmo()
 {
 	CurrentAmmo = 0;

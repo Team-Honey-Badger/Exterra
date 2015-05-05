@@ -254,6 +254,7 @@ void AFPSCharacter::OnStopJump()
 	bPressedJump = false;
 }
 
+//reload the current weapon
 void AFPSCharacter::reloadWeapon()
 {
 	if (CurrentWeapon != NULL)
@@ -262,6 +263,7 @@ void AFPSCharacter::reloadWeapon()
 	}
 }
 
+//clear the ammo of the current weapon
 void AFPSCharacter::clearAmmo()
 {
 	if (CurrentWeapon != NULL)
