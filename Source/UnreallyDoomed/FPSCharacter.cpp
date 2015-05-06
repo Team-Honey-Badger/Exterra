@@ -333,7 +333,7 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 			if (Spawner)
 			{
 				Inventory[Spawner->WeaponConfig.Priority] = Spawner;
-				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, "You just picked up a" + Inventory[Spawner->WeaponConfig.Priority]->WeaponConfig.Name);
+				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "You just picked up a" + Inventory[Spawner->WeaponConfig.Priority]->WeaponConfig.Name);
 			}
 			Weapon->Destroy();
 		}
@@ -342,7 +342,7 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 			if ((Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo >= 0) && (Weapon->CurrentAmmo <= Inventory[Weapon->WeaponConfig.Priority]->WeaponConfig.MaxAmmo - Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo))
 			{
 				Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo += Weapon->CurrentAmmo;
-				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Added: " + Weapon->GetName() + Weapon->CurrentAmmo);
+				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Added: " + Weapon->GetName() + Weapon->CurrentAmmo);
 				Weapon->Destroy();
 			}
 			else
