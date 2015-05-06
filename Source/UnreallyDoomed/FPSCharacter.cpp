@@ -123,6 +123,7 @@ void AFPSCharacter::Tick(float DeltaTime)
 
 	//let the BP tick too by calling it's tick function
 	extendedTick();
+
 }
 
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
