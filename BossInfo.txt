@@ -1,0 +1,44 @@
+Boss 1: Hover Bomber
+	Spawns after getting far enough from the boss door
+	Boss door locks with a spinning blade that can kill you
+	Behaviour:
+		Locates player location
+		Drives to it and updates player location after reaching it
+		Speed is determined by number of coils (black and green cylinders)
+		Shoots large fireballs (kinda pointless to be honest)
+	How to fight it:
+		Preferred weapon: Assault Rifle
+		Shoot at the shield until it begins to spark
+		Wait for the shield to fail
+		Shoot out a coil (shield regenerates after destroying one)
+		Repeat until only the platform is left to shoot
+		Shoot platform and wait for the fire to finish it off
+		Slow it down early by destroying 1 coil so it slows down a little so you can avoid it
+		After that, keep sprinting away (in a circle works fine) while facing it
+		Make sure you do not run out of stamina, or else it'll catch up to you
+		
+Boss 2: Hacking Console
+	Activates when you get in range
+	Blocks exit with fire (which burns you to death, even touching it will light you on fire)
+	3D prints two melee aliens every two seconds beside you
+	How to fight it:
+		Stand in front of it to begin hacking it
+		When hacking, a description will appear of your current progress
+		Keep standing there for two seconds until the message changes to "Please Wait..."
+		From here you may/should leave the console to kill off the aliens while it processes
+		Once the message changes to "Press any key," you can go back to hacking it
+		There are ten stages to hacking this boss
+		Once the last hack is complete, the 3D printer will deactivate
+
+Boss 3: Monitors
+	A force field locks you in after entering the room
+	There are also several ranged aliens
+	The force field depletes all of your ammo so you can fight back
+	You need to destroy all three monitors regardless
+	How to fight them:
+		Play dodgeball!
+		Stand in front of the monitors and dodge fireballs until the monitors break (begin to spark)
+		Break all three
+		Don't worry about getting the aliens to shoot each other, the last one can't kill himself anyway
+		Once all the monitors are destroyed, the aliens' life support fails and they die over time
+		You won!

@@ -20,11 +20,28 @@ Team Overview:
 			Weapon inventory
 			Ammo system 
 
+Controls:
+	WASD for movement
+	Left Shift for Sprinting (press while walking, not before)
+	Space to jump
+	R to reload (no animation, instant reload)
+	Left Mouse Button to shoot
+	
+Objectives:
+	Main:
+		Defeat the boss to progress to the next level
+	Minor:
+		Locate keys in green doors to unlock red doors
+		
+Boss info:
+	Found in BossInfo.txt file
+	Warning: Contains spoilers
+			
 Known Bugs:
 	AI:
 		Sometimes enemies may spam roars
 		Bosses not well explained in-game
-		Boss 1 is too slow moving and can shoot itself
+		Boss 1 can shoot itself
 		Ranged AI can shoot each other (not sure if bug)
 		Ranged AI don't make footsteps
 		NavMesh related bugs
