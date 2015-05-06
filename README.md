@@ -39,11 +39,8 @@ Boss info:
 			
 Known Bugs:
 	AI:
-		Sometimes enemies may spam roars
 		Bosses not well explained in-game
 		Boss 1 can shoot itself
-		Ranged AI can shoot each other (not sure if bug)
-		Ranged AI don't make footsteps
 		NavMesh related bugs
 		
 	Levels:
