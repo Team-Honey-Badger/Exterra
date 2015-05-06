@@ -26,6 +26,7 @@ Controls:
 	Space to jump
 	R to reload (no animation, instant reload)
 	Left Mouse Button to shoot
+	Escape to exit game
 	
 Objectives:
 	Main:
@@ -42,13 +43,14 @@ Known Bugs:
 		Bosses not well explained in-game
 		Boss 1 can shoot itself
 		NavMesh related bugs
-		
 	Levels:
 		Collision volume issues:
 			Large arches cannot be entered
 		Some holes under doorways:
 			Level 3 boss door is one example
 		Visibility is limited
+		Jumping on upwards lift can lead to falling through it
+		VERY hard to notice that you picked up the left side's key in level 1
 	Weapons:
 		Cannot fire through trigger volumes and other invisible objects:
 			Doors are troublesome
@@ -56,9 +58,12 @@ Known Bugs:
 		Fire rates are to fast
 		Assault rifle range is too short
 		Damage is too high (1 hit kills)
+		Ammo's mag count is wrong
 	Sounds:
-		Almost everything is broken
+		Not enough sounds
+		Some sounds not playing at correct locations
 	Misc:
 		No proper win condition
 		No HUD indications of fatigue and timers (respawn/level progression)
+		No HUD for keys remaining
 		
