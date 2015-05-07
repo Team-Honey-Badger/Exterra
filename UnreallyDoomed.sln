@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{701CB96A-55D9-456A-976E-E4EAEB664BBC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{F65A7833-DBC5-43C7-9CED-6AEBDB4A165D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{F62F7AA8-5124-42EC-84FC-B7B90E7E5E55}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{868F916C-C0D7-450F-AF30-74504753A321}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnreallyDoomed", "Intermediate\ProjectFiles\UnreallyDoomed.vcxproj", "{2A142A5B-3919-4A63-A963-FD3D32EECDBF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{D433E4DF-A993-4273-823A-55355D153A3C}"
 EndProject
@@ -30,17 +30,12 @@ Global
 		{2A142A5B-3919-4A63-A963-FD3D32EECDBF}.Development|Windows.Build.0 = Development_Game|x64
 		{2A142A5B-3919-4A63-A963-FD3D32EECDBF}.Shipping|Windows.ActiveCfg = Shipping_Game|Win32
 		{2A142A5B-3919-4A63-A963-FD3D32EECDBF}.Shipping|Windows.Build.0 = Shipping_Game|Win32
-		{D433E4DF-A993-4273-823A-55355D153A3C}.DebugGame Editor|Windows.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{D433E4DF-A993-4273-823A-55355D153A3C}.DebugGame|Windows.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{D433E4DF-A993-4273-823A-55355D153A3C}.Development Editor|Windows.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{D433E4DF-A993-4273-823A-55355D153A3C}.Development|Windows.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{D433E4DF-A993-4273-823A-55355D153A3C}.Shipping|Windows.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D433E4DF-A993-4273-823A-55355D153A3C} = {701CB96A-55D9-456A-976E-E4EAEB664BBC}
-		{2A142A5B-3919-4A63-A963-FD3D32EECDBF} = {F62F7AA8-5124-42EC-84FC-B7B90E7E5E55}
+		{D433E4DF-A993-4273-823A-55355D153A3C} = {F65A7833-DBC5-43C7-9CED-6AEBDB4A165D}
+		{2A142A5B-3919-4A63-A963-FD3D32EECDBF} = {868F916C-C0D7-450F-AF30-74504753A321}
 	EndGlobalSection
 EndGlobal
