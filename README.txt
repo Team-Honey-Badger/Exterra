@@ -65,16 +65,13 @@ Known Bugs:
 		Cannot fire through trigger volumes and other invisible objects:
 			Doors are troublesome
 			Some areas in levels feel awkward
-		Fire rates are to fast
-		Assault rifle range is too short
-		Damage is too high (1 hit kills)
-		Ammo's mag count is wrong
+
 		Sound players after death
 	Sounds:
 		Not enough sounds
 		Some sounds not playing at correct locations
 	Misc:
-		No proper win condition
+		No proper win condition (that's rather big)
 		No HUD indications of fatigue and timers (respawn/level progression)
 		No HUD for keys remaining
 		Death after defeating a boss will likely let you progress anyway  
