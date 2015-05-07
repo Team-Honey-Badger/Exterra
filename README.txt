@@ -50,6 +50,7 @@ Known Bugs:
 		Boss 1 can shoot itself
 		NavMesh related bugs
 	Levels:
+		Visual bug when looking up (at least in parts of level 3)
 		Collision volume issues:
 			Large arches cannot be entered
 		Some holes under doorways:
