@@ -63,9 +63,8 @@ Known Bugs:
 		Pulls you back in after exiting (no escape!)	
 	Weapons:
 		Cannot fire through trigger volumes and other invisible objects:
-			Doors are troublesome
-			Some areas in levels feel awkward
-		Fire rates are to fast
+			Some areas in levels feel awkward (NPCs removed from those areas)
+		Fire rates are to fast (delta time not used)
 		Assault rifle range is too short
 		Damage is too high (1 hit kills)
 		Ammo's mag count is wrong
