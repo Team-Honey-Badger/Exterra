@@ -5,6 +5,7 @@ Instructions: 3 options
 	Open .sln file in visual studio then run it
 	or open project in unreal's launcher
 	Or just unzip the standalone and launch the .exe to play the game without requiring UE4
+	The standalone releases can be found here: https://github.com/Team-Honey-Badger/Exterra/releases
 
 Team Overview:
 	Lead AI developer: Alexander Barsukov
