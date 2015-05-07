@@ -30,10 +30,10 @@ void AFPSGameMode::StartPlay() // runs when game first starts
 
 	StartMatch();
 
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Launching FPS Game Mode")); // print hello world to screen
-	}
+	//if (GEngine)
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Launching FPS Game Mode")); // print hello world to screen
+	//}
 }
 
 

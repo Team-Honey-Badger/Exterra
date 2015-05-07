@@ -50,10 +50,11 @@ Known Bugs:
 			Level 3 boss door is one example
 		Visibility is limited
 		Jumping on upwards lift can lead to falling through it
+		NPCs might be able to trigger some lifts, not entirely sure
 		VERY hard to notice that you picked up the left side's key in level 1
 	Teleporters:
 		Utilized atm
-		Pulls you back in after exiting	
+		Pulls you back in after exiting (no escape!)	
 	Weapons:
 		Cannot fire through trigger volumes and other invisible objects:
 			Doors are troublesome
@@ -71,4 +72,5 @@ Known Bugs:
 		No HUD indications of fatigue and timers (respawn/level progression)
 		No HUD for keys remaining
 		Death after defeating a boss will likely let you progress anyway  
+		There are unused assets that take up space
 		

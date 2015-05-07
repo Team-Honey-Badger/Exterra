@@ -157,10 +157,10 @@ void AWeapon::ReloadAmmo()
 			}
 		}
 	}
-	else
+	/*else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, "NO AMMO!!!");
-	}
+	}*/
 }
 
 //clear our the clip and the ammo of the weapon
