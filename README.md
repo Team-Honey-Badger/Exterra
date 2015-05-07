@@ -51,6 +51,9 @@ Known Bugs:
 		Visibility is limited
 		Jumping on upwards lift can lead to falling through it
 		VERY hard to notice that you picked up the left side's key in level 1
+	Teleporters:
+		Utilized atm
+		Pulls you back in after exiting	
 	Weapons:
 		Cannot fire through trigger volumes and other invisible objects:
 			Doors are troublesome
@@ -59,6 +62,7 @@ Known Bugs:
 		Assault rifle range is too short
 		Damage is too high (1 hit kills)
 		Ammo's mag count is wrong
+		Sound players after death
 	Sounds:
 		Not enough sounds
 		Some sounds not playing at correct locations
@@ -66,4 +70,5 @@ Known Bugs:
 		No proper win condition
 		No HUD indications of fatigue and timers (respawn/level progression)
 		No HUD for keys remaining
+		Death after defeating a boss will likely let you progress anyway  
 		
