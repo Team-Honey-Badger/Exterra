@@ -28,11 +28,12 @@ Team Overview:
 
 Controls:
 	WASD for movement
-	Left Shift for Sprinting (press while walking, not before)
+	Left Shift to Sprint (press while walking, not before)
 	Space to jump
 	R to reload (no animation, instant reload)
 	Left Mouse Button to shoot
 	Escape to exit game
+	F10 to suicide
 	
 Objectives:
 	Main:
@@ -52,9 +53,8 @@ Known Bugs:
 	Levels:
 		Visual bug when looking up (at least in parts of level 3)
 		Collision volume issues:
-			Large arches cannot be entered
-		Some holes under doorways:
-			Level 3 boss door is one example
+			Large arches cannot be entered (no collision for now)
+		Some holes under doorways (fixed one but might be more)
 		Visibility is limited
 		Jumping on upwards lift can lead to falling through it
 		NPCs might be able to trigger some lifts, not entirely sure
