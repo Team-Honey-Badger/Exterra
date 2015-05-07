@@ -1,6 +1,11 @@
 # Exterra
 FPS Game In Unreal Engine 4 (Group project for CS426)
 
+Instructions: 3 options
+	Open .sln file in visual studio then run it
+	or open project in unreal's launcher
+	Or just unzip the standalone and launch the .exe to play the game without requiring UE4
+
 Team Overview:
 	Lead AI developer: Alexander Barsukov
 		Developed:
