@@ -136,6 +136,7 @@ void AWeapon::ReloadAmmo()
 			if (CurrentAmmo < WeaponConfig.MaxClip)
 			{
 				CurrentClip = CurrentAmmo;
+				CurrentAmmo = 0;
 			}
 			else
 			{
@@ -148,6 +149,7 @@ void AWeapon::ReloadAmmo()
 			if (CurrentAmmo < WeaponConfig.MaxClip)
 			{
 				CurrentClip = CurrentAmmo;
+				CurrentAmmo = 0;
 			}
 			else
 			{
