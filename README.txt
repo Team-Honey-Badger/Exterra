@@ -34,6 +34,8 @@ Controls:
 	Left Mouse Button to shoot
 	Escape to exit game
 	F10 to suicide
+	Number keys for weapon selection
+	Mouse wheel for switching weapons (must select one first)
 	
 Objectives:
 	Main:
