@@ -53,20 +53,31 @@ Known Bugs:
 		Boss 1 can shoot itself
 		NavMesh related bugs
 	Levels:
-		Visual bug when looking up (at least in parts of level 3)
-		Collision volume issues:
-			Large arches cannot be entered (no collision for now)
-		Some holes under doorways (fixed one but might be more)
-		Visibility is limited
+		Visual bug when looking up (at least in large rooms of level 3)
+		Some holes under doorways (fixed one but there might be more)
+		Visibility is limited (feature?)
 		Jumping on upwards lift can lead to falling through it
 		NPCs might be able to trigger some lifts, not entirely sure
-		VERY hard to notice that you picked up the left side's key in level 1
+		VERY hard to notice that you picked up the left side's key in level 1 (recommend sound affect or HUD indication)
+		Teleporters don't work as intended (disabled atm)
 	Teleporters:
 		Utilized atm
 		Pulls you back in after exiting (no escape!)	
 	Weapons:
+		[SERIOUS] Weapon selection has empty slots even after picking up all the guns, causing the game to crash!!!!!!
+			Steps to reproduce:
+				Go to level 2 (from menu or just load level 2)
+				Walk about 7 meters forward
+				Press 5 to pull out Rocket Launcher
+				Scroll mouse wheel up
+				There will be weapon gaps
+			Notes:
+				I think this might relate to gun pickup order
+				What could walking have to do with it? Time based issue?
+				I think one quick fix would be to make the player pull out a gun as soon as they grab it
 		Cannot fire through trigger volumes and other invisible objects:
 			Some areas in levels feel awkward (NPCs removed from those areas)
+			Current solution is to place trigger volumes on the ground where they won't be in the way
 		Fire rates are to fast (delta time not used)
 		Damage is too high (1 hit kills)
 		Sound players after death
