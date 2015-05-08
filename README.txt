@@ -11,7 +11,7 @@ Team Overview:
 	Lead AI developer: Alexander Barsukov
 		Developed:
 			Boss fights
-			NPC behaviour and systems (spawners and waypoints)
+			NPC behavior and systems (spawners and waypoints)
 			Player movement controls
 			Respawning and level progression
 	Lead level developer: Joshua Knight

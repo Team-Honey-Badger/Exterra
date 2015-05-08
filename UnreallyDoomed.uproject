@@ -9,10 +9,5 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
-	],
-	"TargetPlatforms": [
-		"WindowsNoEditor",
-		"LinuxNoEditor",
-		"MacNoEditor"
 	]
 }
