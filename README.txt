@@ -90,4 +90,5 @@ Known Bugs:
 		No HUD for keys remaining
 		Death after defeating a boss will likely let you progress anyway  
 		There are unused assets that take up space
+		Mana meter needs to be removed from the HUD
 		
