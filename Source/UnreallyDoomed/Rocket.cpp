@@ -13,7 +13,6 @@ ARocket::ARocket()
 
 	CollisionComp = CreateDefaultSubobject<USphereComponent>("CollisionComp");
 	CollisionComp->InitSphereRadius(50.0f);
-	//CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentBeginOverlap.AddDynamic(this,&ARocket::OnCollision);
 	RootComponent = CollisionComp;
 
@@ -46,18 +45,9 @@ void ARocket::OnCollision(AActor *OtherActor, UPrimitiveComponent *OtherComp, in
 {
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
 	{
-		//AEnemy *Enemy = Cast<AEnemy>(OtherActor);
-		//if (Enemy)
-		//{
-		//	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "YOU BLEW UP AN ENEMY!!");
-		//	Enemy->Destroy();
-		//	Destroy();
-		//}
-
 		// Deal damage to the hit actor
 		if (!OtherActor->GetActorClass()->GetName().Contains("FPSCharacter"))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::White, "OtherActor is " + OtherActor->GetActorClass()->GetName());
 			OtherActor->TakeDamage(/*WeaponConfig.BulletDamageAmount*/100, FDamageEvent(), GetInstigatorController(), this);
 		}
 	}

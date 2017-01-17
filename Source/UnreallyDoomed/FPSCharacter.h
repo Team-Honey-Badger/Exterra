@@ -23,7 +23,6 @@ public:
 	//BP functions called in Cpp
 	UFUNCTION(BlueprintImplementableEvent, Category = "Code Triggered")
 		void extendedTick();
-	//virtual void extendedTick_Implementation();
 
 	// movement variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement) //can be edited in blueprints
@@ -99,7 +98,7 @@ public:
 		USkeletalMeshComponent* FirstPersonMesh;
 
 	// Constructor for AFPSCharacter
-	AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/);
+	AFPSCharacter();
 
 	//ticks over time to passively update player
 	virtual void Tick(float DeltaTime) override;
@@ -157,7 +156,6 @@ public:
 	void NextWeapon();
 	void PrevWeapon();
 	void EquipWeapon(AWeapon *Weapon);
-	//void GiveDefaultWeapons();
 
 	UFUNCTION(BlueprintCallable, Category = Event)
 	virtual void BeginPlay() override;

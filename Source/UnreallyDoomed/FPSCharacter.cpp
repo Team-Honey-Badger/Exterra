@@ -42,10 +42,6 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 void AFPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	//FActorSpawnParameters SpawnParams;
-	//SpawnParams.Owner = this;
-	//SpawnParams.Instigator = Instigator;
-	//AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn, SpawnParams);
 
 	//initialize vars
 	isRunning = false;
@@ -56,23 +52,8 @@ void AFPSCharacter::BeginPlay()
 	runningRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
 	jumpingRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
 	walkingRelativeLoc = initialRelativeLoc; //FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);
-	/*runningRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -30);
-	jumpingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(20, 0, -2);
-	walkingRelativeLoc = FirstPersonCameraComponent->RelativeLocation + FVector(0, 0, 0);*/
 	GetCharacterMovement()->JumpZVelocity = defaultJumpZVelocity;
 
-	//if (Spawner)
-	//{
-	//	Spawner->AttachRootComponentTo(Mesh, "Weapon_Socket", EAttachLocation::SnapToTarget);
-	//	CurrentWeapon = Spawner;
-	//}
-
-	/*if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("First Person Character In Use"));
-	}*/
-
-	//GiveDefaultWeapons();
 }
 
 void AFPSCharacter::Tick(float DeltaTime)
@@ -84,35 +65,10 @@ void AFPSCharacter::Tick(float DeltaTime)
 	else if (!GetCharacterMovement()->IsMovingOnGround()){
 		FirstPersonCameraComponent->RelativeLocation = jumpingRelativeLoc;
 	}
-	//else{
-	//	if (isRunning){ //running
-	//		UGameplayStatics::PlaySoundAttached(footstepCue, GetMesh());
-	//	}
-	//	else{ //walking
-	//		UGameplayStatics::PlaySoundAttached(footstepCue, GetMesh());
-	//	}
-	//}
+
 	if (!isRunning){
 		if (stamina < maxStamina){
 			stamina += GetWorld()->GetDeltaSeconds(); //recharge stamina
-			/*if (stamina < 0){
-				if (GEngine)
-				{
-					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Fatigue Fading"));
-				}
-			}
-			else{
-				if (GEngine)
-				{
-					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Charging"));
-				}
-			}*/
-			/*if (stamina > maxStamina){
-				if (GEngine)
-				{
-					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Restored Max Stamina"));
-				}is
-			}*/
 		}
 	}
 
@@ -120,10 +76,6 @@ void AFPSCharacter::Tick(float DeltaTime)
 	{
 		CurrentWeapon->Fire();
 	}
-
-	//let the BP tick too by calling it's tick function
-	//extendedTick(); (not used in game, but here just in case we never need it)
-
 }
 
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
@@ -153,7 +105,6 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* InputComponent)
 
 void AFPSCharacter::MoveForward(float Value)
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("move call"));
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
 		// find out which way is forward
@@ -176,18 +127,10 @@ void AFPSCharacter::MoveForward(float Value)
 			}
 			GetCharacterMovement()->MaxWalkSpeed = runSpeed;
 			stamina -= GetWorld()->GetDeltaSeconds(); //drain stamina
-			/*if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Draining"));
-			}*/
 
 			// player enters fatigue after running out of stamina
 			if (stamina < 0){
 				stamina = -maxStamina;
-				/*if (GEngine)
-				{
-					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Entering Max Fatigue"));
-				}*/
 			}
 		}
 		else{ //walking
@@ -218,8 +161,6 @@ void AFPSCharacter::StopRunning()
 
 void AFPSCharacter::Kill()
 {
-	//GetCapsuleComponent()->SetSimulatePhysics(true);
-	//GetCapsuleComponent()->AddForce(FVector(-5000, 0, 0));
 	UGameplayStatics::PlaySoundAttached(deathCue, GetMesh()); // death sound
 }
 
@@ -238,12 +179,10 @@ void AFPSCharacter::MoveRight(float Value)
 void AFPSCharacter::OnStartJump()
 {
 	if (isRunning){ //run and jump
-		//UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
 		if (!GetCharacterMovement()->IsFalling())
 			UGameplayStatics::PlaySoundAttached(jumpRunCue, GetMesh()); //player sound effect
 	}
 	else{ //just a jump
-		//UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
 		if (!GetCharacterMovement()->IsFalling())
 			UGameplayStatics::PlaySoundAttached(jumpCue, GetMesh());
 	}
@@ -290,29 +229,12 @@ void AFPSCharacter::FireWeapon()
 			PawnMakeNoise(1.0f, GetActorLocation(RootComponent)); //alert AI of the noise
 		}
 	}
-	/*else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "No Weapon Eqipped Currently");
-	}*/
 }
 
 void AFPSCharacter::stopFireWeapon()
 {
 	isFiring = false;
 }
-
-//void AFPSCharacter::GiveDefaultWeapons()
-//{
-//	AWeapon *Spawner = GetWorld()->SpawnActor<AWeapon>(WeaponSpawn);
-//	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Weapon Spawn is" + Spawner->WeaponConfig.Name);
-//	//if (Spawner)
-//	//{
-//	//	Inventory[Spawner->WeaponConfig.Priority] = Spawner;
-//	//	CurrentWeapon = Inventory[Spawner->WeaponConfig.Priority];
-//	//	CurrentWeapon->SetOwningPawn(this);
-//	//	CurrentWeapon->OnEquip();
-//	//}
-//}
 
 void AFPSCharacter::OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
@@ -333,7 +255,6 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 			if (Spawner)
 			{
 				Inventory[Spawner->WeaponConfig.Priority] = Spawner;
-				//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "You just picked up a " + Inventory[Spawner->WeaponConfig.Priority]->WeaponConfig.Name);
 			}
 			Weapon->Destroy();
 		}
@@ -342,7 +263,6 @@ void AFPSCharacter::ProcessWeaponPickup(AWeapon *Weapon)
 			if ((Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo >= 0) && (Weapon->CurrentAmmo <= Inventory[Weapon->WeaponConfig.Priority]->WeaponConfig.MaxAmmo - Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo))
 			{
 				Inventory[Weapon->WeaponConfig.Priority]->CurrentAmmo += Weapon->CurrentAmmo;
-				//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, "Added: " + Weapon->GetName() + Weapon->CurrentAmmo);
 				Weapon->Destroy();
 			}
 			else

@@ -12,8 +12,5 @@ UCLASS()
 class UNREALLYDOOMED_API AAssaultRifle : public AWeapon
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
 };
