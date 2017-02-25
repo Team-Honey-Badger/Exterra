@@ -165,6 +165,12 @@ protected:
 	//setup inputs
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+	//tick counter to try and get continuous firing in tandem with delta time
+	float tickTimer;
+
+	//fire rate for continuous weapons (SMG, Assault Rifles)
+	float contFireRate;
+
 	//handles moving forward/backward
 	UFUNCTION()
 		void MoveForward(float Val);

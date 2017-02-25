@@ -9,6 +9,8 @@ AFPSCharacter::AFPSCharacter(/*const FObjectInitializer& ObjectInitializer*/)
 {
 	CurrentWeapon = NULL;
 	WeaponSpawn = NULL;
+	tickTimer = 0;
+	contFireRate = 0;
 
 	Inventory.SetNum(5, false);
 
@@ -74,7 +76,26 @@ void AFPSCharacter::Tick(float DeltaTime)
 
 	if (isFiring)
 	{
-		CurrentWeapon->Fire();
+		if (CurrentWeapon->WeaponConfig.Name == "SMG")
+		{
+			contFireRate = CurrentWeapon->WeaponConfig.TimeBetweenShots;
+		}
+		else if (CurrentWeapon->WeaponConfig.Name == "Assault Rifle")
+		{
+			contFireRate = CurrentWeapon->WeaponConfig.TimeBetweenShots;
+		}
+
+		if (tickTimer > (DeltaTime*contFireRate))
+		{
+			FString deltaTimeSTR = FString::SanitizeFloat(DeltaTime);
+			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *deltaTimeSTR);
+			CurrentWeapon->Fire();
+			tickTimer = 0;
+		}
+		else
+		{
+			tickTimer += DeltaTime;
+		}
 	}
 }
 
